@@ -18,8 +18,9 @@ for i in range(0, numberOfClasses):
     datum = np.matrix(np.transpose(np.column_stack((x, y))))
     data[:,i*numberOfPoints:i*numberOfPoints + numberOfPoints] = datum
 
-print(data.size)
 
+
+#displaying classification data
 fig = plt.figure()
 for i in range(0, numberOfClasses):
     plt.scatter(data[0, i*numberOfPoints:(i+1)*numberOfPoints], data[1,i*numberOfPoints:(i+1)*numberOfPoints])
