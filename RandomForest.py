@@ -3,6 +3,8 @@ import numpy as np
 
 #data and label length should be the same
 def RandomForest(data, labels, numberOfTrees, minDepth):
+    numberOfClasses = labels.max()
+    data = [labels; data]
 
 
     #create a bunch of trees and stuff
@@ -17,6 +19,10 @@ def RandomForest(data, labels, numberOfTrees, minDepth):
 
         #create tree
 
+#get the best split point for dataset
+def getSplit(dataset):
 
-def getSplit(dataset, nFeatures):
-    
+#calculates the entropy of
+def calcEntropy(dataset, split):
+
+def getHistogram(dataset):
