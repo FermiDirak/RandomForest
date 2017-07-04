@@ -21,5 +21,6 @@ for i in range(0, numberOfClasses):
 print(data.size)
 
 fig = plt.figure()
-plt.scatter(data[0,0:200], data[1,0:200])
+for i in range(0, numberOfClasses):
+    plt.scatter(data[0, i*numberOfPoints:(i+1)*numberOfPoints], data[1,i*numberOfPoints:(i+1)*numberOfPoints])
 plt.show()
