@@ -1,8 +1,6 @@
 import math
 import numpy as np
 
-from NN import swag #imports
-
 #data and label length should be the same
 def RandomForest(data, labels, numberOfTrees, minDepth):
     numberOfClasses = labels.max()
@@ -24,7 +22,9 @@ def RandomForest(data, labels, numberOfTrees, minDepth):
         tree = new DecisionTree(subset);
         forest[0, t] = tree
 
+    forest = np.matrix(forest)
     return forest
 
-if __name__ == '__main__':
-    swag()
+#classifies a 2 featured new instance
+def testPoint(forest, newInstance):
+    for t in range(0, forest.size.m)
