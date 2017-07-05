@@ -5,14 +5,14 @@ class Node:
         self.right = None
 
 
-class Tree: # passing (object ) into class is no longer needed in python3
+class Tree:
 
-    def __init__(self, dataset, minDepth, depth = 3):
+    def __init__(self, dataset, minDepth):
         self.root = None
         self.left = None
         self.right = None
         self.data = dataset
-        self.depth = depth
+        self.depth = minDepth
 
     def add_head(self, data):
         if self.root == None:
