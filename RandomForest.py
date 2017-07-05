@@ -25,4 +25,6 @@ def getSplit(dataset):
 #calculates the entropy of
 def calcEntropy(dataset, split):
 
-def getHistogram(dataset):
+def getHistogram(dataset, labelsCount):
+    labels = np.empty([labelsCount, 0])
+    for i in range(data.size.m)
