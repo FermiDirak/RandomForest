@@ -1,19 +1,41 @@
+class Node:
+    def __init__(self, data=None):
+        self.data = data
+        self.left = None
+        self.right = None
+
+
 class Tree: # passing (object ) into class is no longer needed in python3
 
-    def __init__(self, dataset, minDepth):
+    def __init__(self, dataset, minDepth, depth = 3):
         self.root = None
         self.left = None
         self.right = None
         self.data = dataset
+        self.depth = depth
 
-    def add_head(data):
+    def add_head(self, data):
         if self.root == None:
-            self.root = data
-    def add_child(data):
+            self.root = data #unsafe lol
+    def add_left_child(self, data):
         """possible implementation?"""
         pass
-    def get_data():
+    def add_right_child(self, data):
+        """possible implementation?"""
         pass
+    def get_data(self, node):
+        return node.data
+    def gen_tree(self, depth=self.depth):
+        """ builds full tree recursively """
+        if depth == 1:
+            return Node()
+        self.root = Node()
+        self.root.left = gen_tree(depth-1)
+        self.root.right = gen_tree(depth-1)
+        return self.root
+
+
+
 
     #gets a random split point for the dataset
     def getRandomSplit(dataset):
@@ -48,4 +70,5 @@ class Tree: # passing (object ) into class is no longer needed in python3
 
 
 if __name__ == '__main__':
+    # toy tree demo
     root = Tree()
