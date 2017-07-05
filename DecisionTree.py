@@ -17,12 +17,12 @@ class Tree: # passing (object ) into class is no longer needed in python3
     def add_head(self, data):
         if self.root == None:
             self.root = data #unsafe lol
-    def add_left_child(self, data):
+    def add_left_child(self, node, data):
         """possible implementation?"""
-        pass
+        if node.left == None: node.left = Node(data)
     def add_right_child(self, data):
         """possible implementation?"""
-        pass
+        if node.right == None: node.right = Node(data)
     def get_data(self, node):
         return node.data
     def gen_tree(self, depth=self.depth):
