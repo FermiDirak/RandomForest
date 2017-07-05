@@ -24,7 +24,7 @@ def RandomForest(data, labels, numberOfTrees, minDepth):
 
 #get the best split point for dataset
 def getRandomSplit(dataset):
-    split = np.transpose(np.matrix(np.zeros([0, 0])))
+    split = np.transpose(np.matrix(np.zeros(2)))
     coordN = np.round(np.random.rand())
     coordM = np.floor(dataset.size.m * np.random.rand())
 
@@ -41,9 +41,13 @@ def calcGini(histogram, labelsCount):
     gini = 1 - gini
     return gini
 
+#returns a 1 * labelCount matrix of histogram data
 def getHistogram(dataset, labelsCount):
-    labels = np.empty([labelsCount, 0])
-    for i in range(data.size.m)
+    histogram = np.matrix(np.zeros(labelsCount))
+    for i in range(dataset.size.m)
+        j = dataset[0, i]
+        histogram[0, j] += 1
+    return histogram
 
 if __name__ == '__main__':
     swag()
