@@ -28,4 +28,9 @@ def RandomForest(data, labels, numberOfTrees, minDepth):
 #classifies a 2 featured new instance
 def testPoint(forest, newInstance):
     histograms = np.empty([1, labelsCount])
+
+    #go down the tree and find histogram of the point for the tree
     for t in range(0, forest.size.m)
+        #@TODO find the histogram for a given point for the tree t
+
+    return histograms / forest.size.m
