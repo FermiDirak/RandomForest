@@ -1,6 +1,6 @@
 class Tree: # passing (object ) into class is no longer needed in python3
 
-    def __init__(self, dataset):
+    def __init__(self, dataset, minDepth):
         self.root = None
         self.left = None
         self.right = None
