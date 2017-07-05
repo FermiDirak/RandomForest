@@ -8,6 +8,8 @@ def RandomForest(data, labels, numberOfTrees, minDepth):
     numberOfClasses = labels.max()
     data = [labels; data]
 
+    forest = np.empty([0, numberOfTrees])
+
     #create a bunch of trees and stuff
     for t in range(0, numberOfTrees):
         #pick sqrt(n) datapoints. Can be redundant datapoints
@@ -19,6 +21,11 @@ def RandomForest(data, labels, numberOfTrees, minDepth):
             subset[0, i] = data[:, np.floor(data.size.m * np.random.rand())]
 
         #create tree
+        tree = new DecisionTree(subset);
+        forest[0, t] = tree
+
+    return forest
+
 
 #get the best split point for dataset
 def getRandomSplit(dataset):
