@@ -1,8 +1,8 @@
 class Tree(object):
-    def __init__(self, dataset)
-    self.left = None
-    self.right = None
-    self.data = dataset
+    def __init__(self, dataset): #holy get a linter you need one
+        self.left = None
+        self.right = None
+        self.data = dataset
 
     #get the best split point for dataset
     def getRandomSplit(dataset):
@@ -17,7 +17,6 @@ class Tree(object):
 
     def getBestGiniSplit(dataset, labelsCount):
         return 0
-
 
     #calculates gini value of a given dataset
     def calcGini(histogram, labelsCount):
@@ -35,5 +34,5 @@ class Tree(object):
             j = dataset[0, i]
             histogram[0, j] += 1
         return histogram
-
-root = Tree()
+if __name__ == '__main__':
+    root = Tree()
