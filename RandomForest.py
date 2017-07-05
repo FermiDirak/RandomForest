@@ -27,4 +27,5 @@ def RandomForest(data, labels, numberOfTrees, minDepth):
 
 #classifies a 2 featured new instance
 def testPoint(forest, newInstance):
+    histograms = np.empty([1, labelsCount])
     for t in range(0, forest.size.m)

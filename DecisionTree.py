@@ -47,5 +47,7 @@ class Tree: # passing (object ) into class is no longer needed in python3
             j = dataset[0, i]
             histogram[0, j] += 1
         return histogram
+
+        
 if __name__ == '__main__':
     root = Tree()
