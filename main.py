@@ -2,6 +2,7 @@ import math
 import numpy as np
 import matplotlib.pyplot as plt
 
+import NN
 
 numberOfPoints = 100 #number of data points per class
 numberOfClasses = 4 #number of classes in dataset
@@ -10,7 +11,7 @@ numberOfClasses = 4 #number of classes in dataset
 def generateData(numberOfPoints, numberOfClasses):
     data = np.empty([3, numberOfClasses * numberOfPoints])
     for i in range(0, numberOfClasses):
-        data[0, i*numberOfPoints:(i+1)*numberOfPoints] = np.matrix(np.ones(numberOfPoints));
+        data[0, i*numberOfPoints:(i+1)*numberOfPoints] = np.float(i) #np.matrix(np.ones(numberOfPoints));
         radius = np.linspace(0.05, 1, numberOfPoints)
         theta  = np.linspace(i*2*math.pi/numberOfClasses, i*2*math.pi/numberOfClasses + 3*math.pi/2, numberOfPoints) + \
                  np.random.normal(0, .1, numberOfPoints)
@@ -29,4 +30,5 @@ def display(data):
 
 if __name__ == '__main__':
     data = generateData(numberOfPoints, numberOfClasses)
+    print(data.T, np.shape(data))
     display(data)
