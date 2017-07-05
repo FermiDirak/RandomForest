@@ -1,6 +1,8 @@
 import math
 import numpy as np
 
+from NN import swag #imports 
+
 #data and label length should be the same
 def RandomForest(data, labels, numberOfTrees, minDepth):
     numberOfClasses = labels.max()
@@ -28,3 +30,6 @@ def calcEntropy(dataset, split):
 def getHistogram(dataset, labelsCount):
     labels = np.empty([labelsCount, 0])
     for i in range(data.size.m)
+
+if __name__ == '__main__':
+    swag()
