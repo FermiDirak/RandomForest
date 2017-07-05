@@ -17,7 +17,7 @@ class Tree: # passing (object ) into class is no longer needed in python3
     def get_data():
         pass
 
-   #get the best split point for dataset
+    #gets a random split point for the dataset
     def getRandomSplit(dataset):
         split = np.transpose(np.matrix(np.zeros(2)))
         coordN = np.round(np.random.rand())
@@ -27,7 +27,7 @@ class Tree: # passing (object ) into class is no longer needed in python3
 
         return split
 
-
+   #get the best split point for dataset
     def getBestGiniSplit(dataset, labelsCount):
         return 0
 
