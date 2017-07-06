@@ -1,34 +1,28 @@
 class Node:
-    def __init__(self, data=None):
+    def __init__(self, data, depth):
         self.data = data
         self.left = None
         self.right = None
+        self.depth = depth
 
-    def add_left_child(self, data):
+    def add_left_child(self, node):
         if node.left == None:
-            self.left = Node(data)
+            self.left = node
 
-    def add_right_child(self, data):
+    def add_right_child(self, node):
         if node.right == None:
-            self.right = Node(data)
+            self.right = node
 
 
 class Tree:
 
     def __init__(self, dataset, min_depth):
-        self.data = data
-        self.split = None
-        self.left = None
-        self.right = None
-        self.depth = 0
-
-
+        self.tree = gen_tree(min_depth)
 
     def get_data(self, node):
         return node.data
 
-    def gen_tree(self, depth=self.min_depth):
-        """ builds full tree recursively """
+    def gen_tree(self, depth):
         if depth == 1:
             return Node()
         self.root = Node()
