@@ -2,7 +2,7 @@ import math
 import numpy as np
 import matplotlib.pyplot as plt
 
-import tensorflow as tf
+# import tensorflow as tf
 
 """
 Implementing a simple one hidden layer on the spiral dataset
@@ -21,16 +21,18 @@ class Softmax:
         return np.dot(self.x, self._w) + self._b #( 300 x 4)
 
     def loss(self):
+        """softmax loss"""
         m = self.x.shape[0]
         exp_scores = np.exp(self.eval())
         probs = exp_scores / np.sum(exp_scores, axis=1, keepdims=True)
-        corect_logprobs = -np.log(probs[: , self.y.astype(int)])
+        corect_logprobs = -np.log(probs[range(self.x.shape[0]) , self.y.astype(int)])
         data_loss = np.sum(corect_logprobs)/self.x.shape[0]
         reg_loss = 0.5 * 1e-3 * np.sum(self._w * self._w)
         loss = data_loss + reg_loss
         return loss, probs
 
     def gradients(self):
+        """performs single parameter update"""
         loss, probs = self.loss()
         dscores = probs
         dscores[range(self.x.shape[0]),self.y.astype(int)] -= 1
@@ -57,10 +59,11 @@ class Softmax:
 
 
 if __name__ == '__main__':
-    hello = tf.constant('Hello, TensorFlow!')
-
-    # Start tf session
-    sess = tf.Session()
-
-    # Run the op
-    print(sess.run(hello))
+    pass
+    # hello = tf.constant('Hello, TensorFlow!')
+    #
+    # # Start tf session
+    # sess = tf.Session()
+    #
+    # # Run the op
+    # print(sess.run(hello))
