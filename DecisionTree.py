@@ -14,6 +14,11 @@ class Node:
         if node.right == None:
             self.right = node
 
+    def createNode(self, data, depth):
+        self.data = data
+        self.split = getRandomSplit(data)
+
+
 
 class Tree:
 
@@ -43,6 +48,35 @@ class Tree:
         split[coordN, 0] = dataset[coordN + 1, coordM]
 
         return split
+
+    #gets split where top right are 'right' and bottom left are 'left'. returns left subset of data from split
+    def get_left_split(dataset, split):
+        return get_split(dataset, split, true)
+
+    #gets split where top right are 'right' and bottom left are 'left'. returns right subset of data from split
+    def getRightSplit(dataset, split):
+        return get_split(dataset, split, false)
+
+    #get split. pass in true for left and false for right for direction
+    def get_split(datset, split, direction):
+        split = np.empty([:, dataset.size.m])
+        is_x_split = (split[1,0] == 0)
+        feature = 0
+        if !is_x_split:
+            feature = 1
+        split_value = split[feature, 0]
+
+        j = 0
+        for i in range(0, dataset.size.m):
+            current_instance = dataset[feature_index, i]
+
+            if ((direction && current_instance <= split_value) || (!direction && current_instance > split_value)):
+                split[:,j] = dataset[:, i]
+                j++
+
+        split = split[:,0:j+1]
+        return split
+
 
    #get the best split point for dataset
     def getBestGiniSplit(dataset, labelsCount):
