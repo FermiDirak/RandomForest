@@ -39,4 +39,4 @@ if __name__ == '__main__':
 
     display(data)
 
-    # softmax.train()
+    softmax.train()

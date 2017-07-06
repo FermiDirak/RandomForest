@@ -19,33 +19,36 @@ class Softmax:
         self.y = y #labels (300 x 1)
     def eval(self):
         return np.dot(self.x, self._w) + self._b #( 300 x 4)
+
     def loss(self):
         m = self.x.shape[0]
         exp_scores = np.exp(self.eval())
         probs = exp_scores / np.sum(exp_scores, axis=1, keepdims=True)
-        corect_logprobs = -np.log(probs[range(num_examples),self.y])
-        data_loss = np.sum(corect_logprobs)/num_examples
-        reg_loss = 0.5*1e-3*np.sum(self._w, self._w)
+        corect_logprobs = -np.log(probs[: , self.y.astype(int)])
+        data_loss = np.sum(corect_logprobs)/self.x.shape[0]
+        reg_loss = 0.5 * 1e-3 * np.sum(self._w * self._w)
         loss = data_loss + reg_loss
         return loss, probs
+
     def gradients(self):
         loss, probs = self.loss()
         dscores = probs
-        dscores[range(num_examples),self.y] -= 1
-        dscores /= 300
+        dscores[range(self.x.shape[0]),self.y.astype(int)] -= 1
+        dscores /= self.x.shape[0]
         dW = np.dot(self.x.T, dscores)
         db = np.sum(dscores, axis=0, keepdims=True)
-        dW += reg*self._w # don't forget the regularization gradient
-        self._w += -step_size * dW
-        self._b += -step_size * db
+        dW += 1e-3*self._w # don't forget the regularization gradient
+        self._w += -1e-0 * dW
+        self._b += -1e-0 * db
+
     def train(self):
         for i in range(200):
             loss, probs = self.loss()
             print('iteration #%d: loss %f ' % (i, loss))
-            gradients()
+            self.gradients()
         scores = self.eval()
         predicted_class = np.argmax(scores, axis=1)
-        print 'training accuracy: %.2f' % (np.mean(predicted_class == self.y))
+        print ('training accuracy: %.2f' % (np.mean(predicted_class == self.y)))
 
 
 
