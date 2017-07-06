@@ -3,6 +3,7 @@ class Node:
         self.data = data
         self.left = None
         self.right = None
+        self.split = None
         self.depth = depth
 
     def add_left_child(self, node):

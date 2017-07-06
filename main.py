@@ -29,14 +29,15 @@ def display(data):
         plt.scatter(data[1, i*numberOfPoints:(i+1)*numberOfPoints], data[2,i*numberOfPoints:(i+1)*numberOfPoints])
     plt.show()
 
-if __name__ == '__main__':
-    data = generateData(numberOfPoints, numberOfClasses)
+def nn_troubleshoot(data):
     print(data.T, np.shape(data))
     print(data.T[:, 1:3].shape)
     print(data.T[:, 0].shape)
-
     softmax = Softmax(data.T[: ,1:2], data.T[:, 0])
-
-    display(data)
-
     softmax.train()
+
+
+if __name__ == '__main__':
+    data = generateData(numberOfPoints, numberOfClasses)
+    nn_troubleshoot(data)
+    display(data)
