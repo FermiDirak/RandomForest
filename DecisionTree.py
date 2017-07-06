@@ -1,36 +1,28 @@
 class Node:
-    def __init__(self, data=None):
+    def __init__(self, data, depth):
         self.data = data
         self.left = None
         self.right = None
+        self.depth = depth
+
+    def add_left_child(self, node):
+        if node.left == None:
+            self.left = node
+
+    def add_right_child(self, node):
+        if node.right == None:
+            self.right = node
 
 
 class Tree:
 
     def __init__(self, dataset, min_depth):
-        self.root = None
-        self.left = None
-        self.right = None
-        self.data = dataset
-        self.depth = min_depth
-
-    def add_head(self, data):
-        if self.root == None:
-            self.root = data #unsafe lol
-
-    def add_left_child(self, node, data):
-        """possible implementation?"""
-        if node.left == None: node.left = Node(data)
-
-    def add_right_child(self, data):
-        """possible implementation?"""
-        if node.right == None: node.right = Node(data)
+        self.tree = gen_tree(min_depth)
 
     def get_data(self, node):
         return node.data
 
-    def gen_tree(self, depth=self.min_depth):
-        """ builds full tree recursively """
+    def gen_tree(self, depth):
         if depth == 1:
             return Node()
         self.root = Node()
