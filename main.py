@@ -2,7 +2,8 @@ import math
 import numpy as np
 import matplotlib.pyplot as plt
 
-import NN
+from NN import Softmax
+
 
 numberOfPoints = 100 #number of data points per class
 numberOfClasses = 4 #number of classes in dataset
@@ -31,4 +32,8 @@ def display(data):
 if __name__ == '__main__':
     data = generateData(numberOfPoints, numberOfClasses)
     print(data.T, np.shape(data))
+    print(data.T[:, 1:2], data.T[:, 0])
+
+    softmax = Softmax(data.T[: ,1:2], data.T[:, 0])
+
     display(data)
