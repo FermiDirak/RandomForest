@@ -30,7 +30,7 @@ def testPoint(forest, new_instance):
     histograms = np.empty([1, number_of_classes])
 
     #go down the tree and find histogram of the point for the tree
-    for t in range(0, forest.size.m)
+    for t in range(0, forest.size.m):
         #@TODO find the histogram for a given point for the tree t
 
     return 0

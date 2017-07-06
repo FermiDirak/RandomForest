@@ -4,23 +4,25 @@ class Node:
         self.left = None
         self.right = None
 
+    def add_left_child(self, data):
+        if node.left == None:
+            self.left = Node(data)
+
+    def add_right_child(self, data):
+        if node.right == None:
+            self.right = Node(data)
+
 
 class Tree:
 
     def __init__(self, dataset, min_depth):
-        self.root = data
+        self.data = data
+        self.split = None
         self.left = None
         self.right = None
-        self.data = dataset
-        self.depth = min_depth
+        self.depth = 0
 
-    def add_left_child(self, node, data):
-        """possible implementation?"""
-        if node.left == None: node.left = Node(data)
 
-    def add_right_child(self, data):
-        """possible implementation?"""
-        if node.right == None: node.right = Node(data)
 
     def get_data(self, node):
         return node.data
