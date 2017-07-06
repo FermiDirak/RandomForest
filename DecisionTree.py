@@ -8,15 +8,11 @@ class Node:
 class Tree:
 
     def __init__(self, dataset, min_depth):
-        self.root = None
+        self.root = data
         self.left = None
         self.right = None
         self.data = dataset
         self.depth = min_depth
-
-    def add_head(self, data):
-        if self.root == None:
-            self.root = data #unsafe lol
 
     def add_left_child(self, node, data):
         """possible implementation?"""
