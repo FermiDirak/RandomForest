@@ -6,6 +6,8 @@ class Node:
         self.split = None
         self.depth = depth
 
+        add_children()
+
     def add_left_child(self, node):
         if node.left == None:
             self.left = node
@@ -17,27 +19,6 @@ class Node:
     def createNode(self, data, depth):
         self.data = data
         self.split = getRandomSplit(data)
-
-
-
-class Tree:
-
-    def __init__(self, dataset, min_depth):
-        self.tree = gen_tree(min_depth)
-
-    def get_data(self, node):
-        return node.data
-
-    def gen_tree(self, depth):
-        if depth == 1:
-            return Node()
-        self.root = Node()
-        self.root.left = gen_tree(depth-1)
-        self.root.right = gen_tree(depth-1)
-        return self.root
-
-
-
 
     #gets a random split point for the dataset
     def getRandomSplit(dataset):
@@ -51,13 +32,13 @@ class Tree:
 
     #gets split where top right are 'right' and bottom left are 'left'. returns left subset of data from split
     def get_left_split(dataset, split):
-        return get_split(dataset, split, true)
+        return get_split(dataset, split, 'left')
 
     #gets split where top right are 'right' and bottom left are 'left'. returns right subset of data from split
     def getRightSplit(dataset, split):
-        return get_split(dataset, split, false)
+        return get_split(dataset, split, 'right')
 
-    #get split. pass in true for left and false for right for direction
+    #returns split. pass in 'left' for left and 'right' for right for direction to get that split
     def get_split(datset, split, direction):
         split = np.empty([:, dataset.size.m])
         is_x_split = (split[1,0] == 0)
@@ -70,8 +51,8 @@ class Tree:
         for i in range(0, dataset.size.m):
             current_instance = dataset[feature_index, i]
 
-            if ((direction && current_instance <= split_value) || (!direction && current_instance > split_value)):
-                split[:,j] = dataset[:, i]
+            if ((direction == 'left' && current_instance <= split_value) || (direction == 'right' && current_instance > split_value)):
+                split[:, j] = dataset[:, i]
                 j++
 
         split = split[:,0:j+1]
@@ -98,6 +79,23 @@ class Tree:
             j = dataset[0, i]
             histogram[0, j] += 1
         return histogram
+
+class Tree:
+
+    def __init__(self, dataset, min_depth):
+        self.tree = gen_tree(min_depth)
+
+    def get_data(self, node):
+        return node.data
+
+    def gen_tree(self, depth):
+        if depth == 1:
+            return Node()
+        self.root = Node()
+        self.root.left = gen_tree(depth-1)
+        self.root.right = gen_tree(depth-1)
+        return self.root
+
 
 
 if __name__ == '__main__':
