@@ -11,17 +11,58 @@ class NN:
     def __init__(self, x, y):
         h = 100
         self._w = 0.01 * np.random.randn(x.shape[1], h) # compute hidden layer
-        self._w2 = 0.0.1 * np.random.randn(h, 4) # computes output
+        self._b = np.zeros((1,h))
+        self._w2 = 0.01 * np.random.randn(h, 4) # computes output
+        self._b2 = np.zeros((1, 4))
         self.x = x
         self.y = y
     def eval(self):
-        pass
+        hidden = np.maximum(0, np.dot(self.x, self._w) + self._b) # ReLU activation
+        output = np.dot(hidden, self._w2) + self._b2
+        return hidden, output
     def loss(self):
-        pass
+        """softmax loss"""
+        m = self.x.shape[0]
+        exp_scores = np.exp(self.eval()[1])
+        probs = exp_scores / np.sum(exp_scores, axis=1, keepdims=True)
+        corect_logprobs = -np.log(probs[range(self.x.shape[0]) , self.y.astype(int)])
+        data_loss = np.sum(corect_logprobs)/self.x.shape[0]
+        reg_loss = 0.5 * 1e-3 * np.sum(self._w * self._w)
+        loss = data_loss + reg_loss
+        return loss, probs
     def gradients(self):
-        pass
+        hidden, output = self.eval()
+        loss, probs = self.loss()
+        dscores = probs
+        dscores[range(self.x.shape[0]),self.y.astype(int)] -= 1
+        dscores /= self.x.shape[0]
+
+        dW2 = np.dot(hidden.T, dscores) #
+        db2 = np.sum(dscores, axis=0, keepdims=True)
+
+        dhidden = np.dot(dscores, self._w2.T)
+        dhidden[hidden <= 0 ] = 0 # gradient of RELU
+
+        dW = np.dot(self.x.T, dhidden)
+        db = np.sum(dhidden, axis=0, keepdims=True)
+
+        dW2 = -1e-3 * self._w2
+        dW = -1e-3 * self._w
+
+        self._w += -1e-0 * dW
+        self._b += -1e-0 * db
+        self._w2 += -1e-0 * dW2
+        self._b2 += -1e-0 * db2
+
+
     def train(self):
-        pass
+        for i in range(10000):
+            loss, _ = self.loss()
+            print('iteration #%d: loss %f ' % (i, loss))
+            self.gradients()
+        _, scores = self.eval()
+        predicted_class = np.argmax(scores, axis=1)
+        print ('training accuracy: %.2f' % (np.mean(predicted_class == self.y)))
 
 """
 Softmax classifier
