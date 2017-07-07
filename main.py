@@ -33,14 +33,9 @@ def display(data):
     colors = ['red', 'green', 'blue', 'yellow', 'orange'];
 
     fig = plt.figure()
-<<<<<<< HEAD
-    for i in range(0, number_of_classes):
-        plt.scatter(data[1, i*number_of_points:(i+1)*number_of_points], data[2, i*number_of_points:(i+1)*number_of_points], color = colors[i])
-=======
     # for i in range(0, numberOfClasses):
     #     plt.scatter(data[1, i*numberOfPoints:(i+1)*numberOfPoints], data[2,i*numberOfPoints:(i+1)*numberOfPoints])
     plt.scatter(data[1, :], data[2, :], c=data[0, :], s=40, cmap=plt.cm.Spectral)
->>>>>>> 977d689b0e985dfd795b626e6d73fc69263e6edd
     plt.show()
 
 def train_softmax(data):
