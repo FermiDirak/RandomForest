@@ -1,23 +1,17 @@
 class Node:
     def __init__(self, data, depth):
         self.data = data
-        self.left = None
-        self.right = None
-        self.split = None
+        self.split = getRandomSplit(dataset)
         self.depth = depth
+        self.left = add_child(Node(get_left_split(data, split), depth - 1))
+        self.right = add_child(Node(get_right_split(data, split), depth -1))
 
-        add_children(data, depth)
-
-    def add_children(self, data, depth):
-        getRandomSplit(data);
-
-    def add_left_child(self, node):
-        if node.left == None:
-            self.left = node
-
-    def add_right_child(self, node):
-        if node.right == None:
-            self.right = node
+    def add_child(self, node):
+        if (node.depth == 0) {
+            return None
+        } else {
+            return node
+        }
 
     def createNode(self, data, depth):
         self.data = data
@@ -38,7 +32,7 @@ class Node:
         return get_split(dataset, split, 'left')
 
     #gets split where top right are 'right' and bottom left are 'left'. returns right subset of data from split
-    def getRightSplit(dataset, split):
+    def get_right_split(dataset, split):
         return get_split(dataset, split, 'right')
 
     #returns split. pass in 'left' for left and 'right' for right for direction to get that split
@@ -62,12 +56,30 @@ class Node:
         return split
 
 
-   #get the best split point for dataset
+   #get the best split vector for dataset using Gini impurity
     def getBestGiniSplit(dataset, labelsCount):
-        return 0
 
-    #calculates gini value of a given dataset
-    def calcGini(histogram, labelsCount):
+        best_split = np.transpose(np.matrix(np.zeros(2)))
+        best_gini = 2
+
+        for i in range(0, dataset.size.n - 1):
+            for j in range(0, dataset.size.m):
+                split = np.transpose(np.matrix(np.zeros(2)))
+                split[i, 0] = dataset[i, j]
+
+                gini_left = calc_gini(calc_histogram(get_left_split(dataset, split), labelsCount), labelsCount)
+                gini_right = calc_gini(calc_histogram(get_right_split(dataset, split), labelsCount), labelsCount)
+
+                gini = gini_left + gini_right
+
+                if gini < best_gini:
+                    best_gini = gini
+                    best_split = split
+
+        return best_split
+
+    #calculates gini value of a given histogram
+    def calc_gini(histogram, labelsCount):
         gini = 0
         for i in range(0, histogram.size.m)
             gini += histogram[0, i] * histogram[0, i]
@@ -75,13 +87,13 @@ class Node:
         return gini
 
 
-    #returns a 1 * labelCount matrix of histogram data
-    def getHistogram(dataset, labelsCount):
-        histogram = np.matrix(np.zeros(labelsCount))
+    #returns a 1 x labelCount matrix of histogram data
+    def calc_histogram(dataset, labelsCount):
+        histogram = np.zeros(labelsCount)
         for i in range(dataset.size.m)
             j = dataset[0, i]
-            histogram[0, j] += 1
-        return histogram
+            histogram[j] += 1
+        return np.matrix(histogram)
 
 class Tree:
 
