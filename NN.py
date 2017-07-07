@@ -7,6 +7,21 @@ import matplotlib.pyplot as plt
 """
 Implementing a simple one hidden layer on the spiral dataset
 """
+class NN:
+    def __init__(self, x, y):
+        h = 100
+        self._w = 0.01 * np.random.randn(x.shape[1], h) # compute hidden layer
+        self._w2 = 0.0.1 * np.random.randn(h, 4) # computes output
+        self.x = x
+        self.y = y
+    def eval(self):
+        pass
+    def loss(self):
+        pass
+    def gradients(self):
+        pass
+    def train(self):
+        pass
 
 """
 Softmax classifier
