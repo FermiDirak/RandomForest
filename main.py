@@ -9,7 +9,7 @@ number_of_points = 100 #number of data points per class
 number_of_classes = 4 #number of classes in dataset
 
 #data generation: creates spiral dataset with 4 classes and 100 samples each
-def generateData(numberOfPoints, numberOfClasses):
+def generateData(number_of_points, number_of_classes):
 
     data = np.empty([3, number_of_classes * number_of_points])
 

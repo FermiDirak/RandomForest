@@ -6,7 +6,10 @@ class Node:
         self.split = None
         self.depth = depth
 
-        add_children()
+        add_children(data, depth)
+
+    def add_children(self, data, depth):
+        getRandomSplit(data);
 
     def add_left_child(self, node):
         if node.left == None:
