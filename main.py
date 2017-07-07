@@ -6,7 +6,7 @@ from NN import Softmax, NN
 
 
 number_of_points = 100 #number of data points per class
-number_of_classes = 3 #number of classes in dataset
+number_of_classes = 4 #number of classes in dataset
 
 #data generation: creates spiral dataset with 4 classes and 100 samples each
 def generateData(numberOfPoints, numberOfClasses):
@@ -50,7 +50,7 @@ def train_nn(data):
     print(data.T[:, 1:3].shape)
     print(data.T[range(400), 0].shape)
 
-    nn = NN(data.T[: ,1:3], data.T[:, 0])
+    nn = NN(data.T[: ,1:], data.T[:, 0])
 
     nn.train()
 
@@ -58,6 +58,6 @@ def train_nn(data):
 if __name__ == '__main__':
     data = generateData(number_of_points, number_of_classes)
     # train_softmax(data)
-    # train_nn(data)
+    train_nn(data)
 
     display(data)
