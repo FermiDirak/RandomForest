@@ -33,19 +33,30 @@ def display(data):
     colors = ['red', 'green', 'blue', 'yellow', 'orange'];
 
     fig = plt.figure()
+<<<<<<< HEAD
     for i in range(0, number_of_classes):
         plt.scatter(data[1, i*number_of_points:(i+1)*number_of_points], data[2, i*number_of_points:(i+1)*number_of_points], color = colors[i])
+=======
+    # for i in range(0, numberOfClasses):
+    #     plt.scatter(data[1, i*numberOfPoints:(i+1)*numberOfPoints], data[2,i*numberOfPoints:(i+1)*numberOfPoints])
+    plt.scatter(data[1, :], data[2, :], c=data[0, :], s=40, cmap=plt.cm.Spectral)
+>>>>>>> 977d689b0e985dfd795b626e6d73fc69263e6edd
     plt.show()
 
 def train_softmax(data):
     print(data.T, np.shape(data))
     print(data.T[:, 1:3].shape)
     print(data.T[:, 0].shape)
-    softmax = Softmax(data.T[: ,1:2], data.T[:, 0])
+    softmax = Softmax(data.T[: ,1:3], data.T[:, 0])
     softmax.train()
 
 def train_nn(data):
-    nn = NN(data.T[: ,1:2], data.T[:, 0])
+    # print(data.T, np.shape(data))
+    print(data.T[:, 1:3].shape)
+    print(data.T[range(400), 0].shape)
+
+    nn = NN(data.T[: ,1:3], data.T[:, 0])
+
     nn.train()
 
 
