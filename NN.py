@@ -34,6 +34,7 @@ class NN:
     def gradients(self):
         hidden, output = self.eval()
         loss, probs = self.loss()
+        
         dscores = probs
         dscores[range(self.x.shape[0]),self.y.astype(int)] -= 1
         dscores /= self.x.shape[0]

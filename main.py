@@ -25,8 +25,9 @@ def generateData(numberOfPoints, numberOfClasses):
 def display(data):
     #displaying classification data
     fig = plt.figure()
-    for i in range(0, numberOfClasses):
-        plt.scatter(data[1, i*numberOfPoints:(i+1)*numberOfPoints], data[2,i*numberOfPoints:(i+1)*numberOfPoints])
+    # for i in range(0, numberOfClasses): 
+    #     plt.scatter(data[1, i*numberOfPoints:(i+1)*numberOfPoints], data[2,i*numberOfPoints:(i+1)*numberOfPoints])
+    plt.scatter(data[1, :], data[2, :], c=data[0, :], s=40, cmap=plt.cm.Spectral)
     plt.show()
 
 def train_softmax(data):
@@ -37,8 +38,13 @@ def train_softmax(data):
     softmax.train()
 
 def train_nn(data):
+    print(data.T, np.shape(data))
+    print(data.T[:, 1:3].shape)
+    print(data.T[range(400), 0].shape)
+
     nn = NN(data.T[: ,1:2], data.T[:, 0])
-    nn.train()
+
+    # nn.train()
 
 
 if __name__ == '__main__':
