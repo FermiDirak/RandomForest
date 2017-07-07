@@ -23,11 +23,12 @@ class NN:
     def loss(self):
         """softmax loss"""
         m = self.x.shape[0]
-        exp_scores = np.exp(self.eval()[1])
+        _, output = self.eval()
+        exp_scores = np.exp(output)
         probs = exp_scores / np.sum(exp_scores, axis=1, keepdims=True)
         corect_logprobs = -np.log(probs[range(self.x.shape[0]) , self.y.astype(int)])
         data_loss = np.sum(corect_logprobs)/self.x.shape[0]
-        reg_loss = 0.5 * 1e-3 * np.sum(self._w * self._w)
+        reg_loss = 0.5 * 1e-3 * np.sum(self._w * self._w) + 0.5 * 1e-3 * np.sum(self._w2 * self._w2)
         loss = data_loss + reg_loss
         return loss, probs
     def gradients(self):
@@ -46,8 +47,8 @@ class NN:
         dW = np.dot(self.x.T, dhidden)
         db = np.sum(dhidden, axis=0, keepdims=True)
 
-        dW2 = -1e-3 * self._w2
-        dW = -1e-3 * self._w
+        dW2 += 1e-3 * self._w2
+        dW += 1e-3 * self._w
 
         self._w += -1e-0 * dW
         self._b += -1e-0 * db
@@ -58,7 +59,8 @@ class NN:
     def train(self):
         for i in range(10000):
             loss, _ = self.loss()
-            print('iteration #%d: loss %f ' % (i, loss))
+            if i % 1000 == 0:
+                print('iteration #%d: loss %f ' % (i, loss))
             self.gradients()
         _, scores = self.eval()
         predicted_class = np.argmax(scores, axis=1)
