@@ -34,7 +34,7 @@ class NN:
     def gradients(self):
         hidden, output = self.eval()
         loss, probs = self.loss()
-        
+
         dscores = probs
         dscores[range(self.x.shape[0]),self.y.astype(int)] -= 1
         dscores /= self.x.shape[0]
@@ -62,6 +62,7 @@ class NN:
             loss, _ = self.loss()
             if i % 1000 == 0:
                 print('iteration #%d: loss %f ' % (i, loss))
+                print('accuracy : ', np.mean(np.argmax(self.eval()[1], axis=1) == self.y))
             self.gradients()
         _, scores = self.eval()
         predicted_class = np.argmax(scores, axis=1)

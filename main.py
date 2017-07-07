@@ -38,7 +38,7 @@ def train_softmax(data):
     softmax.train()
 
 def train_nn(data):
-    print(data.T, np.shape(data))
+    # print(data.T, np.shape(data))
     print(data.T[:, 1:3].shape)
     print(data.T[range(400), 0].shape)
 
