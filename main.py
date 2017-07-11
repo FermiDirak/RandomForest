@@ -29,14 +29,13 @@ def generateData(number_of_points, number_of_classes):
     return data
 
 def display(data):
-    display_decision_boundary(data)
+    # display_decision_boundary(data)
     display_training_data(data)
     plt.show()
 
 #displays training data for classification
 def display_training_data(data):
-    colors = ['red', 'green', 'blue', 'yellow', 'orange']
-    plt.scatter(data[1, :], data[2, :], color=colors, s=40)
+    plt.scatter(data[1, :], data[2, :], c=data[0, :], s=40, cmap='jet')
 
 def display_decision_boundary(data):
     nx = 100
