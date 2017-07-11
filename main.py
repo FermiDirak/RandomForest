@@ -35,9 +35,10 @@ def display(data):
 
 #displays training data for classification
 def display_training_data(data):
-    plt.scatter(data[1, :], data[2, :], c=data[0, :], s=40, cmap='jet')
+    plt.scatter(data[1, :], data[2, :], c=data[0, :], s=40, cmap=plt.cm.Spectral)
 
 def display_decision_boundary(data):
+
     nx = 100
     ny = 100
 
@@ -51,6 +52,7 @@ def display_decision_boundary(data):
 
 
 
+
 def train_softmax(data):
     print(data.T, np.shape(data))
     print(data.T[:, 1:3].shape)
@@ -61,16 +63,17 @@ def train_softmax(data):
 def train_nn(data):
     # print(data.T, np.shape(data))
     print(data.T[:, 1:3].shape)
-    print(data.T[range(400), 0].shape)
+    # print(data.T[range(400), 0].shape)
 
     nn = NN(data.T[: ,1:], data.T[:, 0])
 
     nn.train()
+    nn.display()
 
 
 if __name__ == '__main__':
     data = generateData(number_of_points, number_of_classes)
     # train_softmax(data)
-    # train_nn(data)
+    train_nn(data)
 
     display(data)
