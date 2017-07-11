@@ -6,7 +6,7 @@ from NN import Softmax, NN
 
 
 number_of_points = 100 #number of data points per class
-number_of_classes = 4 #number of classes in dataset
+number_of_classes = 3 #number of classes in dataset
 
 #data generation: creates spiral dataset with 4 classes and 100 samples each
 def generateData(number_of_points, number_of_classes):
@@ -33,9 +33,9 @@ def display(data):
     colors = ['red', 'green', 'blue', 'yellow', 'orange'];
 
     fig = plt.figure()
-    # for i in range(0, numberOfClasses):
-    #     plt.scatter(data[1, i*numberOfPoints:(i+1)*numberOfPoints], data[2,i*numberOfPoints:(i+1)*numberOfPoints])
-    plt.scatter(data[1, :], data[2, :], c=data[0, :], s=40, cmap=plt.cm.Spectral)
+    for i in range(0, number_of_classes):
+        plt.scatter(data[1, i*number_of_points:(i+1)*number_of_points], data[2,i*number_of_points:(i+1)*number_of_points], color=colors[i])
+    #plt.scatter(data[1, :], data[2, :], c=data[0, :], s=40, cmap=plt.cm.Spectral)
     plt.show()
 
 def train_softmax(data):
@@ -58,6 +58,6 @@ def train_nn(data):
 if __name__ == '__main__':
     data = generateData(number_of_points, number_of_classes)
     # train_softmax(data)
-    train_nn(data)
+    # train_nn(data)
 
     display(data)
