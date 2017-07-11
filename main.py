@@ -37,10 +37,10 @@ def display(data):
 def display_training_data(data):
     colors = ['red', 'green', 'blue', 'yellow', 'orange']
 
-    for i in range(0, number_of_classes):
-        plt.scatter(data[1, i*number_of_points:(i+1)*number_of_points], data[2,i*number_of_points:(i+1)*number_of_points], color=colors[i])
+    #for i in range(0, number_of_classes):
+        #plt.scatter(data[1, i*number_of_points:(i+1)*number_of_points], data[2,i*number_of_points:(i+1)*number_of_points], color=colors[i])
 
-    #plt.scatter(data[1, :], data[2, :], c=data[0, :], s=40, cmap=plt.cm.Spectral)
+    plt.scatter(data[1, :], data[2, :], color=colors, s=40)
 
 def display_decision_boundary(data):
     nx = 100
