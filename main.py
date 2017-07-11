@@ -28,15 +28,33 @@ def generateData(number_of_points, number_of_classes):
 
     return data
 
-#displays data for classification
 def display(data):
-    colors = ['red', 'green', 'blue', 'yellow', 'orange'];
+    display_decision_boundary(data)
+    display_training_data(data)
+    plt.show()
 
-    fig = plt.figure()
+#displays training data for classification
+def display_training_data(data):
+    colors = ['red', 'green', 'blue', 'yellow', 'orange']
+
     for i in range(0, number_of_classes):
         plt.scatter(data[1, i*number_of_points:(i+1)*number_of_points], data[2,i*number_of_points:(i+1)*number_of_points], color=colors[i])
+
     #plt.scatter(data[1, :], data[2, :], c=data[0, :], s=40, cmap=plt.cm.Spectral)
-    plt.show()
+
+def display_decision_boundary(data):
+    nx = 100
+    ny = 100
+
+    r = np.random.random(ny * nx).reshape((ny, nx))
+    g = np.random.random(ny * nx).reshape((ny, nx))
+    b = np.random.random(ny * nx).reshape((ny, nx))
+
+    c = np.dstack([r,g,b])
+
+    plt.imshow(c, interpolation='none', extent=[-1,1,-1,1])
+
+
 
 def train_softmax(data):
     print(data.T, np.shape(data))
