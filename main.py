@@ -29,15 +29,18 @@ def generateData(number_of_points, number_of_classes):
     return data
 
 def display(data):
-    # display_decision_boundary(data)
+    display_decision_boundary(None, None, None)
     display_training_data(data)
     plt.show()
 
 #displays training data for classification
 def display_training_data(data):
-    plt.scatter(data[1, :], data[2, :], c=data[0, :], s=40, cmap=plt.cm.Spectral)
+    colors = ['red', 'green', 'blue', 'yellow', 'orange']
 
-def display_decision_boundary(data):
+    for i in range(0, number_of_classes):
+        plt.scatter(data[1, i*number_of_points:(i+1)*number_of_points], data[2, i*number_of_points:(i+1)*number_of_points], c=colors[i], s=40)
+
+def display_decision_boundary(class1, class2, class3):
 
     nx = 100
     ny = 100
@@ -48,7 +51,7 @@ def display_decision_boundary(data):
 
     c = np.dstack([r,g,b])
 
-    plt.imshow(c, interpolation='none', extent=[-1,1,-1,1])
+    plt.imshow(c, interpolation='nearest', extent=[-1,1,-1,1])
 
 
 
@@ -74,6 +77,6 @@ def train_nn(data):
 if __name__ == '__main__':
     data = generateData(number_of_points, number_of_classes)
     # train_softmax(data)
-    train_nn(data)
+    # train_nn(data)
 
     display(data)
