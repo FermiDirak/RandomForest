@@ -1,10 +1,24 @@
 class Node:
     def __init__(self, data, depth):
         self.data = data
-        self.split = getRandomSplit(dataset)
+        self.split = getRandomSplit(dataset, self.labelsCount)
         self.depth = depth
         self.left = add_child(Node(get_left_split(data, split), depth - 1))
         self.right = add_child(Node(get_right_split(data, split), depth -1))
+
+    def traceNode(self, instance):
+        m = 0
+        if (self.split[0, 0] == 0):
+            m = 1
+        child = None
+
+        if (self.left == none) or (self.right == none):
+            return self.data
+
+        if (instance[m,0] <= self.split[m, 0]):
+            return(traceNode(self.left)
+        else:
+            return(traceNode(self.right)
 
     def add_child(self, node):
         if node.depth == 0:
@@ -91,20 +105,15 @@ class Node:
         return np.matrix(histogram)
 
 class Tree:
+    def __init__(self, dataset, min_depth, labelsCount):
+        self.tree = gen_tree(dataset, min_depth)
+        self.labelsCount = labelsCount
 
-    def __init__(self, dataset, min_depth):
-        self.tree = gen_tree(min_depth)
+    def gen_tree(self, dataset, depth):
+        return Node(dataset, depth)
 
-    def get_data(self, node):
-        return node.data
+    def traceTree(instance):
 
-    def gen_tree(self, depth):
-        if depth == 1:
-            return Node()
-        self.root = Node()
-        self.root.left = gen_tree(depth-1)
-        self.root.right = gen_tree(depth-1)
-        return self.root
 
 
 
