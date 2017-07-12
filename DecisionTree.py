@@ -7,15 +7,10 @@ class Node:
         self.right = add_child(Node(get_right_split(data, split), depth -1))
 
     def add_child(self, node):
-        if (node.depth == 0) {
+        if node.depth == 0:
             return None
-        } else {
+        else:
             return node
-        }
-
-    def createNode(self, data, depth):
-        self.data = data
-        self.split = getRandomSplit(data)
 
     #gets a random split point for the dataset
     def getRandomSplit(dataset):
@@ -37,10 +32,10 @@ class Node:
 
     #returns split. pass in 'left' for left and 'right' for right for direction to get that split
     def get_split(datset, split, direction):
-        split = np.empty([:, dataset.size.m])
+        split_dataset = np.empty([dataset.size.n, dataset.size.m])
         is_x_split = (split[1,0] == 0)
         feature = 0
-        if !is_x_split:
+        if not is_x_split:
             feature = 1
         split_value = split[feature, 0]
 
@@ -48,16 +43,16 @@ class Node:
         for i in range(0, dataset.size.m):
             current_instance = dataset[feature_index, i]
 
-            if ((direction == 'left' && current_instance <= split_value) || (direction == 'right' && current_instance > split_value)):
-                split[:, j] = dataset[:, i]
-                j++
+            if ((direction == 'left' and current_instance[feature, 0] <= split_value) or (direction == 'right' and current_instance[feature, 0] > split_value)):
+                split_dataset[:, j] = dataset[:, i]
+                j += 1
 
-        split = split[:,0:j+1]
-        return split
+        split_dataset = split_dataset[:,0:j+1]
+        return split_dataset
 
 
    #get the best split vector for dataset using Gini impurity
-    def getBestGiniSplit(dataset, labelsCount):
+    def getBestGiniSplit(dataset, labels_count):
 
         best_split = np.transpose(np.matrix(np.zeros(2)))
         best_gini = 2
@@ -65,10 +60,10 @@ class Node:
         for i in range(0, dataset.size.n - 1):
             for j in range(0, dataset.size.m):
                 split = np.transpose(np.matrix(np.zeros(2)))
-                split[i, 0] = dataset[i, j]
+                split[i, 0] = dataset[i+1, j]
 
-                gini_left = calc_gini(calc_histogram(get_left_split(dataset, split), labelsCount), labelsCount)
-                gini_right = calc_gini(calc_histogram(get_right_split(dataset, split), labelsCount), labelsCount)
+                gini_left = calc_gini(calc_histogram(get_left_split(dataset, split), labels_count))
+                gini_right = calc_gini(calc_histogram(get_right_split(dataset, split), labels_count))
 
                 gini = gini_left + gini_right
 
@@ -79,9 +74,9 @@ class Node:
         return best_split
 
     #calculates gini value of a given histogram
-    def calc_gini(histogram, labelsCount):
+    def calc_gini(histogram):
         gini = 0
-        for i in range(0, histogram.size.m)
+        for i in range(0, histogram.size.m):
             gini += histogram[0, i] * histogram[0, i]
         gini = 1 - gini
         return gini
@@ -90,7 +85,7 @@ class Node:
     #returns a 1 x labelCount matrix of histogram data
     def calc_histogram(dataset, labelsCount):
         histogram = np.zeros(labelsCount)
-        for i in range(dataset.size.m)
+        for i in range(dataset.size.m):
             j = dataset[0, i]
             histogram[j] += 1
         return np.matrix(histogram)
