@@ -2,7 +2,6 @@ import math
 import numpy as np
 import Tree from DecisionTree
 
-
 #data and label length should be the same
 def create_random_forest(data, number_of_trees, min_depth):
     number_of_classes = data[0, :].max() + 1
