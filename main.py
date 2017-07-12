@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 
 from NN import Softmax, NN
 
+import RandomForest as rf
+
 
 number_of_points = 100 #number of data points per class
 number_of_classes = 3 #number of classes in dataset
@@ -71,7 +73,7 @@ def train_nn(data):
     nn.display()
 
 def train_random_forest(data):
-    print('hello world')
+    forest = rf.create_random_forest(data, 100, 7)
 
 if __name__ == '__main__':
     data = generateData(number_of_points, number_of_classes)

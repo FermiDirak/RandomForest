@@ -4,11 +4,10 @@ import Tree from DecisionTree
 
 
 #data and label length should be the same
-def RandomForest(data, labels, number_of_trees, min_depth):
-    number_of_classes = labels.max()
-    data = [labels; data]
+def create_random_forest(data, number_of_trees, min_depth):
+    number_of_classes = data[0, :].max() + 1
 
-    forest = np.empty([0, number_of_trees])
+    forest = np.empty([number_of_trees])
 
     #create an ensamble of trees
     for t in range(0, number_of_trees):
@@ -22,7 +21,7 @@ def RandomForest(data, labels, number_of_trees, min_depth):
 
         #create tree
         tree = new DecisionTree(subset, min_depth, number_of_classes);
-        forest[0, t] = tree
+        forest[t] = tree
 
     return forest
 
