@@ -28,12 +28,11 @@ def RandomForest(data, labels, number_of_trees, min_depth):
 
 #classifies a 2 featured instance
 def testPoint(forest, instance):
-    histograms = np.empty([1, number_of_classes])
+    histograms = np.empty([number_of_classes])
 
     #go down the tree and find histogram of the point for the tree
     for t in range(0, forest.size.m):
         tree = forest[t]
+        histograms[i] = tree.traceNode(instance)
 
-        
-
-    return 0
+    return np.cumsum(histograms) / number_of_classes

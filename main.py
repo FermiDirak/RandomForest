@@ -70,10 +70,14 @@ def train_nn(data):
     nn.train()
     nn.display()
 
+def train_random_forest(data):
+    print('hello world')
 
 if __name__ == '__main__':
     data = generateData(number_of_points, number_of_classes)
     # train_softmax(data)
     # train_nn(data)
+
+    train_random_forest(data)
 
     display(data)
