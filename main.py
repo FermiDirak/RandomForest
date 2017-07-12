@@ -42,7 +42,7 @@ def display_training_data(data):
     for i in range(0, number_of_classes):
         plt.scatter(data[1, i*number_of_points:(i+1)*number_of_points], data[2, i*number_of_points:(i+1)*number_of_points], c=colors[i], s=40)
 
-def display_decision_boundary(class1, class2, class3):
+def display_decision_boundary(hists):
     nx = 100
     ny = 100
 
@@ -72,8 +72,10 @@ def train_nn(data):
     nn.train()
     nn.display()
 
+#returns histograms in range -1,1 -1,1
 def train_random_forest(data):
     forest = rf.create_random_forest(data, 100, 7)
+    
 
 if __name__ == '__main__':
     data = generateData(number_of_points, number_of_classes)

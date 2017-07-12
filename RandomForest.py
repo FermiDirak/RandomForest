@@ -1,6 +1,7 @@
 import math
 import numpy as np
-import Tree from DecisionTree
+
+from DecisionTree import Tree
 
 #data and label length should be the same
 def create_random_forest(data, number_of_trees, min_depth):
@@ -19,7 +20,7 @@ def create_random_forest(data, number_of_trees, min_depth):
             subset[0, i] = data[:, np.floor(data.size.m * np.random.rand())]
 
         #create tree
-        tree = new DecisionTree(subset, min_depth, number_of_classes);
+        tree = new Tree(subset, min_depth, number_of_classes)
         forest[t] = tree
 
     return forest
@@ -33,4 +34,4 @@ def testPoint(forest, instance):
         tree = forest[t]
         histograms[i] = tree.traceNode(instance)
 
-    return np.cumsum(histograms) / number_of_classes
+    return np.sum(histograms, axis = 0) / number_of_classes
