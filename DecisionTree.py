@@ -10,15 +10,14 @@ class Node:
         m = 0
         if (self.split[0, 0] == 0):
             m = 1
-        child = None
 
         if (self.left == none) or (self.right == none):
-            return self.data
+            return calc_histogram(self.data, self.labelsCount)
 
         if (instance[m,0] <= self.split[m, 0]):
-            return(traceNode(self.left)
+            return(traceNode(self.left))
         else:
-            return(traceNode(self.right)
+            return(traceNode(self.right))
 
     def add_child(self, node):
         if node.depth == 0:
@@ -113,7 +112,7 @@ class Tree:
         return Node(dataset, depth)
 
     def traceTree(instance):
-
+        return self.tree().traceNode(instance)
 
 
 

@@ -41,7 +41,6 @@ def display_training_data(data):
         plt.scatter(data[1, i*number_of_points:(i+1)*number_of_points], data[2, i*number_of_points:(i+1)*number_of_points], c=colors[i], s=40)
 
 def display_decision_boundary(class1, class2, class3):
-
     nx = 100
     ny = 100
 
@@ -52,8 +51,6 @@ def display_decision_boundary(class1, class2, class3):
     c = np.dstack([r,g,b])
 
     plt.imshow(c, interpolation='nearest', extent=[-1,1,-1,1])
-
-
 
 
 def train_softmax(data):
