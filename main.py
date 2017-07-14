@@ -2,8 +2,6 @@ import math
 import numpy as np
 import matplotlib.pyplot as plt
 
-from NN import Softmax, NN
-
 import RandomForest as rf
 
 
@@ -42,37 +40,8 @@ def display_training_data(data):
     for i in range(0, number_of_classes):
         plt.scatter(data[1, i*number_of_points:(i+1)*number_of_points], data[2, i*number_of_points:(i+1)*number_of_points], c=colors[i], s=40)
 
-def display_decision_boundary(hists):
-    nx = 100
-    ny = 100
-
-    r = np.random.random(ny * nx).reshape((ny, nx))
-    g = np.random.random(ny * nx).reshape((ny, nx))
-    b = np.random.random(ny * nx).reshape((ny, nx))
-
-    c = np.dstack([r,g,b])
-
-    print(c)
-
+def display_decision_boundary(hists, size):
     plt.imshow(c, interpolation='nearest', extent=[-1,1,-1,1])
-
-
-def train_softmax(data):
-    print(data.T, np.shape(data))
-    print(data.T[:, 1:3].shape)
-    print(data.T[:, 0].shape)
-    softmax = Softmax(data.T[: ,1:3], data.T[:, 0])
-    softmax.train()
-
-def train_nn(data):
-    # print(data.T, np.shape(data))
-    print(data.T[:, 1:3].shape)
-    # print(data.T[range(400), 0].shape)
-
-    nn = NN(data.T[: ,1:], data.T[:, 0])
-
-    nn.train()
-    nn.display()
 
 #returns histograms in range -1,1 -1,1
 def train_random_forest(data, size):
@@ -86,14 +55,12 @@ def train_random_forest(data, size):
         for j in range(size):
             histograms[i * size + j] = rf.traceTree(np.transpose(np.matrix([m[i], n[j]])))
 
+    histograms = histograms.reshape((size, size))
+
     display_decision_boundary(histograms)
-
-
 
 if __name__ == '__main__':
     data = generateData(number_of_points, number_of_classes)
-    # train_softmax(data)
-    # train_nn(data)
 
     #train_random_forest(data)
 
