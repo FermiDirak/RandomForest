@@ -6,8 +6,8 @@ class Node:
         self.data = data
         self.depth = depth
         self.split = self.getRandomSplit(data)
-        self.left = add_child(Node(get_left_split(data, split), depth - 1))
-        self.right = add_child(Node(get_right_split(data, split), depth - 1))
+        self.left = self.add_child(Node(self.get_left_split(data, self.split), depth - 1))
+        self.right = self.add_child(Node(self.get_right_split(data, self.split), depth - 1))
 
     @staticmethod
     def traceNode(self, instance):
@@ -44,12 +44,12 @@ class Node:
     #gets split where top right are 'right' and bottom left are 'left'. returns left subset of data from split
     @staticmethod
     def get_left_split(dataset, split):
-        return get_split(dataset, split, 'left')
+        return Node.get_split(dataset, split, 'left')
 
     #gets split where top right are 'right' and bottom left are 'left'. returns right subset of data from split
     @staticmethod
     def get_right_split(dataset, split):
-        return get_split(dataset, split, 'right')
+        return Node.get_split(dataset, split, 'right')
 
     #returns split. pass in 'left' for left and 'right' for right for direction to get that split
     @staticmethod
