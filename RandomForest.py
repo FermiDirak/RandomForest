@@ -20,7 +20,7 @@ def create_random_forest(data, number_of_trees, min_depth):
             subset[0, i] = data[:, np.floor(data.size.m * np.random.rand())]
 
         #create tree
-        tree = new Tree(subset, min_depth, number_of_classes)
+        tree = Tree(subset, min_depth, number_of_classes)
         forest[t] = tree
 
     return forest

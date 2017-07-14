@@ -31,7 +31,7 @@ def generateData(number_of_points, number_of_classes):
     return data
 
 def display(data):
-    display_decision_boundary(None, None, None)
+    display_decision_boundary(None)
     display_training_data(data)
     plt.show()
 
@@ -51,6 +51,8 @@ def display_decision_boundary(hists):
     b = np.random.random(ny * nx).reshape((ny, nx))
 
     c = np.dstack([r,g,b])
+
+    print(c)
 
     plt.imshow(c, interpolation='nearest', extent=[-1,1,-1,1])
 
@@ -73,15 +75,26 @@ def train_nn(data):
     nn.display()
 
 #returns histograms in range -1,1 -1,1
-def train_random_forest(data):
+def train_random_forest(data, size):
     forest = rf.create_random_forest(data, 100, 7)
-    
+    m = linspace(-1, 1, size)
+    n = linsapce(-1, 1, size)
+
+    histograms = np.empty([size * size])
+
+    for i in range(size):
+        for j in range(size):
+            histograms[i * size + j] = rf.traceTree(np.transpose(np.matrix([m[i], n[j]])))
+
+    display_decision_boundary(histograms)
+
+
 
 if __name__ == '__main__':
     data = generateData(number_of_points, number_of_classes)
     # train_softmax(data)
     # train_nn(data)
 
-    train_random_forest(data)
+    #train_random_forest(data)
 
     display(data)
