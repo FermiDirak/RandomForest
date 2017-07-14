@@ -7,7 +7,7 @@ class Node:
         self.depth = depth
         self.split = self.getRandomSplit(data)
         self.left = add_child(Node(get_left_split(data, split), depth - 1))
-        self.right = add_child(Node(get_right_split(data, split), depth -1))
+        self.right = add_child(Node(get_right_split(data, split), depth - 1))
 
     @staticmethod
     def traceNode(self, instance):
@@ -73,10 +73,9 @@ class Node:
         return split_dataset
 
 
-   #get the best split vector for dataset using Gini impurity
-   @staticmethod
+    #get the best split vector for dataset using Gini impurity
+    @staticmethod
     def getBestGiniSplit(dataset, labels_count):
-
         best_split = np.transpose(np.matrix(np.zeros(2)))
         best_gini = 2
 
