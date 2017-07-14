@@ -92,8 +92,12 @@ def train_random_forest(data, size):
 
 if __name__ == '__main__':
     data = generateData(number_of_points, number_of_classes)
+<<<<<<< HEAD
     # but now i am in werdna !
     # now back to werdna
+=======
+    # testing if master different now! w
+>>>>>>> master
     # train_softmax(data)
     # train_nn(data)
 
