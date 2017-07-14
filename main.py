@@ -92,6 +92,7 @@ def train_random_forest(data, size):
 
 if __name__ == '__main__':
     data = generateData(number_of_points, number_of_classes)
+    # testing if master is still working lol 
     # train_softmax(data)
     # train_nn(data)
 
