@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 import RandomForest as rf
+from DecisionTree import Tree
 
 
 number_of_points = 100 #number of data points per class
@@ -62,6 +63,9 @@ def train_random_forest(data, size):
 if __name__ == '__main__':
     data = generateData(number_of_points, number_of_classes)
 
-    #train_random_forest(data)
+    # train_random_forest(data, 100)
+
+    Tree(data, 7, 3)
+
 
     display(data)

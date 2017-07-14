@@ -1,8 +1,11 @@
+import math
+import numpy as np
+
 class Node:
     def __init__(self, data, depth):
         self.data = data
-        self.split = getRandomSplit(dataset, self.labelsCount)
         self.depth = depth
+        self.split = self.getRandomSplit(data)
         self.left = add_child(Node(get_left_split(data, split), depth - 1))
         self.right = add_child(Node(get_right_split(data, split), depth -1))
 
@@ -19,17 +22,19 @@ class Node:
         else:
             return(traceNode(self.right))
 
-    def add_child(self, node):
+    @staticmethod
+    def add_child(node):
         if node.depth == 0:
             return None
         else:
             return node
 
     #gets a random split point for the dataset
+    @staticmethod
     def getRandomSplit(dataset):
         split = np.transpose(np.matrix(np.zeros(2)))
-        coordN = np.round(np.random.rand())
-        coordM = np.floor(dataset.size.m * np.random.rand())
+        coordN = int(np.round(np.random.rand()))
+        coordM = int(np.floor(dataset.shape[1] * np.random.rand()))
 
         split[coordN, 0] = dataset[coordN + 1, coordM]
 
@@ -45,7 +50,7 @@ class Node:
 
     #returns split. pass in 'left' for left and 'right' for right for direction to get that split
     def get_split(datset, split, direction):
-        split_dataset = np.empty([dataset.size.n, dataset.size.m])
+        split_dataset = np.empty([dataset.shape[0], dataset.shape[1]])
         is_x_split = (split[1,0] == 0)
         feature = 0
         if not is_x_split:
@@ -53,7 +58,7 @@ class Node:
         split_value = split[feature, 0]
 
         j = 0
-        for i in range(0, dataset.size.m):
+        for i in range(0, dataset.shape[1]):
             current_instance = dataset[feature_index, i]
 
             if ((direction == 'left' and current_instance[feature, 0] <= split_value) or (direction == 'right' and current_instance[feature, 0] > split_value)):
@@ -70,8 +75,8 @@ class Node:
         best_split = np.transpose(np.matrix(np.zeros(2)))
         best_gini = 2
 
-        for i in range(0, dataset.size.n - 1):
-            for j in range(0, dataset.size.m):
+        for i in range(0, int(dataset.shape[0] - 1)):
+            for j in range(0, int(dataset.shape[1])):
                 split = np.transpose(np.matrix(np.zeros(2)))
                 split[i, 0] = dataset[i+1, j]
 
@@ -89,41 +94,31 @@ class Node:
     #calculates gini value of a given histogram
     def calc_gini(histogram):
         gini = 0
-        for i in range(0, histogram.size.m):
+        for i in range(0, histogram.shape[1]):
             gini += histogram[0, i] * histogram[0, i]
         gini = 1 - gini
         return gini
 
-
     #returns a 1 x labelCount matrix of histogram data
     def calc_histogram(dataset, labelsCount):
         histogram = np.zeros(labelsCount)
-        for i in range(dataset.size.m):
+        for i in range(dataset.shape[1]):
             j = dataset[0, i]
             histogram[j] += 1
-        return np.matrix(histogram)
 
-#not all data is information
-#not all noise is information
-#information is novel data -- nonredundant
-
-# strange attractor
-    # time sequence
-    # chaos theory Herrmerof
-
+        histogram = histogram / dataset.shape[1]
+        return histogram
 
 class Tree:
     def __init__(self, dataset, min_depth, labelsCount):
-        self.tree = gen_tree(dataset, min_depth)
+        self.tree = Node(dataset, min_depth)
         self.labelsCount = labelsCount
 
-    def gen_tree(self, dataset, depth):
-        return Node(dataset, depth)
-
-    def traceTree(instance):
+    def traceTree(self, instance):
         return self.tree().traceNode(instance)
 
-
+        #usenet
+        #torrent
 
 if __name__ == '__main__':
     # toy tree demo
