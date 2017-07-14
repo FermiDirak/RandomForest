@@ -9,6 +9,7 @@ class Node:
         self.left = add_child(Node(get_left_split(data, split), depth - 1))
         self.right = add_child(Node(get_right_split(data, split), depth -1))
 
+    @staticmethod
     def traceNode(self, instance):
         m = 0
         if (self.split[0, 0] == 0):
@@ -41,14 +42,17 @@ class Node:
         return split
 
     #gets split where top right are 'right' and bottom left are 'left'. returns left subset of data from split
+    @staticmethod
     def get_left_split(dataset, split):
         return get_split(dataset, split, 'left')
 
     #gets split where top right are 'right' and bottom left are 'left'. returns right subset of data from split
+    @staticmethod
     def get_right_split(dataset, split):
         return get_split(dataset, split, 'right')
 
     #returns split. pass in 'left' for left and 'right' for right for direction to get that split
+    @staticmethod
     def get_split(datset, split, direction):
         split_dataset = np.empty([dataset.shape[0], dataset.shape[1]])
         is_x_split = (split[1,0] == 0)
@@ -70,6 +74,7 @@ class Node:
 
 
    #get the best split vector for dataset using Gini impurity
+   @staticmethod
     def getBestGiniSplit(dataset, labels_count):
 
         best_split = np.transpose(np.matrix(np.zeros(2)))
@@ -92,6 +97,7 @@ class Node:
         return best_split
 
     #calculates gini value of a given histogram
+    @staticmethod
     def calc_gini(histogram):
         gini = 0
         for i in range(0, histogram.shape[1]):
@@ -100,6 +106,7 @@ class Node:
         return gini
 
     #returns a 1 x labelCount matrix of histogram data
+    @staticmethod
     def calc_histogram(dataset, labelsCount):
         histogram = np.zeros(labelsCount)
         for i in range(dataset.shape[1]):
