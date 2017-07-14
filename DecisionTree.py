@@ -103,6 +103,15 @@ class Node:
             histogram[j] += 1
         return np.matrix(histogram)
 
+#not all data is information
+#not all noise is information
+#information is novel data -- nonredundant
+
+# strange attractor
+    # time sequence
+    # chaos theory Herrmerof
+
+
 class Tree:
     def __init__(self, dataset, min_depth, labelsCount):
         self.tree = gen_tree(dataset, min_depth)
