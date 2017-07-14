@@ -12,15 +12,17 @@ def create_random_forest(data, number_of_trees, min_depth):
     #create an ensamble of trees
     for t in range(0, number_of_trees):
         #pick sqrt(n) datapoints. Can be redundant datapoints
-        pick_count = np.floor(np.sqrt(data.size.m))
+        # no idea what u were trying to do with size attribute
+        pick_count = np.floor(np.sqrt(np.shape(data)[0]))
 
         #subset of the dataset to create a tree out of
-        subset = np.empty([data.size.n, pick_count])
+        subset = np.empty([np.shape(data)[1], pick_count])
         for i in range(0, pick_count):
-            subset[0, i] = data[:, np.floor(data.size.m * np.random.rand())]
+            subset[0, i] = data[:, np.floor(np.shape(data)[1] * np.random.rand())] # not clear 
 
         #create tree
-        tree = new Tree(subset, min_depth, number_of_classes)
+        # > new key word oh god pls go back to js / java
+        tree = Tree(subset, min_depth, number_of_classes)
         forest[t] = tree
 
     return forest
