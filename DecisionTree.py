@@ -54,6 +54,8 @@ class Node:
     #returns split. pass in 'left' for left and 'right' for right for direction to get that split
     @staticmethod
     def get_split(datset, split, direction):
+        print(dataset)
+
         split_dataset = np.empty([dataset.shape[0], dataset.shape[1]])
         is_x_split = (split[1,0] == 0)
         feature = 0
