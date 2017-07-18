@@ -94,7 +94,7 @@ if __name__ == '__main__':
     data = generateData(number_of_points, number_of_classes)
     # testing if master different now! w
     # train_softmax(data)
-    # train_nn(data)
+    train_nn(data)
 
     #train_random_forest(data)
 
