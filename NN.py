@@ -12,8 +12,8 @@ class NN:
         h = 100
         self._w = 0.01 * np.random.randn(x.shape[1], h) # compute hidden layer
         self._b = np.zeros((1,h))
-        self._w2 = 0.01 * np.random.randn(h, 4) # computes output
-        self._b2 = np.zeros((1, 4))
+        self._w2 = 0.01 * np.random.randn(h, 3) # computes output
+        self._b2 = np.zeros((1, 3))
         self.x = x
         self.y = y
     def eval(self):
@@ -58,9 +58,9 @@ class NN:
 
 
     def train(self):
-        for i in range(10000):
+        for i in range(200):
             loss, _ = self.loss()
-            if i % 1000 == 0:
+            if i % 100 == 0:
                 print('iteration #%d: loss %f ' % (i, loss))
                 print('accuracy : ', np.mean(np.argmax(self.eval()[1], axis=1) == self.y))
             self.gradients()
