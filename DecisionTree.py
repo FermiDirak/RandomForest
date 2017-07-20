@@ -122,6 +122,3 @@ class Tree:
 
     def traceTree(self, instance):
         return self.tree().traceNode(instance)
-
-        #usenet
-        #torrent
