@@ -53,9 +53,7 @@ class Node:
 
     #returns split. pass in 'left' for left and 'right' for right for direction to get that split
     @staticmethod
-    def get_split(datset, split, direction):
-        print(dataset)
-
+    def get_split(dataset, split, direction):
         split_dataset = np.empty([dataset.shape[0], dataset.shape[1]])
         is_x_split = (split[1,0] == 0)
         feature = 0
@@ -65,7 +63,7 @@ class Node:
 
         j = 0
         for i in range(0, dataset.shape[1]):
-            current_instance = dataset[feature_index, i]
+            current_instance = dataset[feature, i]
 
             if ((direction == 'left' and current_instance[feature, 0] <= split_value) or (direction == 'right' and current_instance[feature, 0] > split_value)):
                 split_dataset[:, j] = dataset[:, i]
@@ -127,7 +125,3 @@ class Tree:
 
         #usenet
         #torrent
-
-if __name__ == '__main__':
-    # toy tree demo
-    root = Tree()
