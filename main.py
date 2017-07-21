@@ -67,5 +67,4 @@ if __name__ == '__main__':
 
     Tree(data, 7, 3)
 
-
     display(data)

@@ -72,7 +72,6 @@ class Node:
         split_dataset = split_dataset[:,0:j+1]
         return split_dataset
 
-
     #get the best split vector for dataset using Gini impurity
     @staticmethod
     def getBestGiniSplit(dataset, labels_count):
@@ -116,9 +115,13 @@ class Node:
         return histogram
 
 class Tree:
-    def __init__(self, dataset, min_depth, labelsCount):
+    def __init__(self, dataset, min_depth, labels_count):
+        self.tree = None
+        self.labels_count = labels_count
+        self.min_depth = min_depth
+        self.dataset = dataset
+
         self.tree = Node(dataset, min_depth)
-        self.labelsCount = labelsCount
 
     def traceTree(self, instance):
         return self.tree().traceNode(instance)
