@@ -5,34 +5,32 @@ class Node:
     def __init__(self, data, depth):
         self.data = data
         self.depth = depth
-        self.split = self.getRandomSplit(data)
-        self.left = self.add_child(Node(self.get_left_split(data, self.split), depth - 1))
-        self.right = self.add_child(Node(self.get_right_split(data, self.split), depth - 1))
 
-    @staticmethod
+        self.split = self.getRandomSplit(self.data)
+
+        if (depth > 0):
+            self.left = Node(self.get_left_split(self.data, self.split), self.depth - 1))
+            self.right = Node(self.get_right_split(self.data, self.split), self.depth - 1))
+        else (depth <= 0):
+            self.left = None
+            self.right = None
+
+
     def traceNode(self, instance):
-        m = 0
+        splitIndex = 0
         if (self.split[0, 0] == 0):
-            m = 1
+            splitIndex = 1
 
-        if (self.left == none) or (self.right == none):
-            return calc_histogram(self.data, self.labelsCount)
+        if (self.left == None) or (self.right == None):
+            return calc_histogram(self.data, self.labels_count)
 
-        if (instance[m,0] <= self.split[m, 0]):
+        if (instance[splitIndex, 0] <= self.split[splitIndex, 0]):
             return(traceNode(self.left))
         else:
             return(traceNode(self.right))
 
-    @staticmethod
-    def add_child(node):
-        if node.depth == 0:
-            return None
-        else:
-            return node
-
     #gets a random split point for the dataset
-    @staticmethod
-    def getRandomSplit(dataset):
+    def getRandomSplit(self, dataset):
         split = np.transpose(np.matrix(np.zeros(2)))
         coordN = int(np.round(np.random.rand()))
         coordM = int(np.floor(dataset.shape[1] * np.random.rand()))
@@ -96,32 +94,35 @@ class Node:
 
     #calculates gini value of a given histogram
     @staticmethod
-    def calc_gini(histogram):
+    def calc_gini(histogram, labels_count):
         gini = 0
-        for i in range(0, histogram.shape[1]):
-            gini += histogram[0, i] * histogram[0, i]
+
+        for i in range(0, labels_count):
+            gini += histogram[i] * histogram[i]
         gini = 1 - gini
         return gini
 
-    #returns a 1 x labelCount matrix of histogram data
+    #returns a 1 x labelCount histogram representation of the data
     @staticmethod
-    def calc_histogram(dataset, labelsCount):
-        histogram = np.zeros(labelsCount)
-        for i in range(dataset.shape[1]):
-            j = dataset[0, i]
-            histogram[j] += 1
+    def calc_histogram(dataset, labels_count):
+        histogram = np.zeros(labels_count)
+        number_of_datum = datset.shape[1]
 
-        histogram = histogram / dataset.shape[1]
+        for i in range(number_of_datum):
+            label_id = dataset[0, i]
+            histogram[label_id] += 1
+
+        histogram = histogram / number_of_datum
         return histogram
 
 class Tree:
     def __init__(self, dataset, min_depth, labels_count):
         self.tree = None
-        self.labels_count = labels_count
         self.min_depth = min_depth
+        self.labels_count = labels_count
         self.dataset = dataset
 
         self.tree = Node(dataset, min_depth)
 
     def traceTree(self, instance):
-        return self.tree().traceNode(instance)
+        return self.tree.traceNode(instance)
