@@ -6,15 +6,14 @@ class Node:
         self.data = data
         self.depth = depth
 
-        self.split = self.getRandomSplit(self.data)
+        self.split = self.get_random_split(self.data)
 
         if (depth > 0):
-            self.left = Node(self.get_left_split(self.data, self.split), self.depth - 1))
-            self.right = Node(self.get_right_split(self.data, self.split), self.depth - 1))
-        else (depth <= 0):
+            self.left = Node(self.get_left_data(self.data, self.split), self.depth - 1)
+            self.right = Node(self.get_right_data(self.data, self.split), self.depth - 1)
+        else:
             self.left = None
             self.right = None
-
 
     def traceNode(self, instance):
         splitIndex = 0
@@ -30,7 +29,7 @@ class Node:
             return(traceNode(self.right))
 
     #gets a random split point for the dataset
-    def getRandomSplit(self, dataset):
+    def get_random_split(self, dataset):
         split = np.transpose(np.matrix(np.zeros(2)))
         coordN = int(np.round(np.random.rand()))
         coordM = int(np.floor(dataset.shape[1] * np.random.rand()))
@@ -40,18 +39,16 @@ class Node:
         return split
 
     #gets split where top right are 'right' and bottom left are 'left'. returns left subset of data from split
-    @staticmethod
-    def get_left_split(dataset, split):
-        return Node.get_split(dataset, split, 'left')
+    def get_left_data(self, dataset, split):
+        return self.get_split_data(dataset, split, 'left')
 
     #gets split where top right are 'right' and bottom left are 'left'. returns right subset of data from split
-    @staticmethod
-    def get_right_split(dataset, split):
-        return Node.get_split(dataset, split, 'right')
+    def get_right_data(self, dataset, split):
+        return self.get_split_data(dataset, split, 'right')
 
     #returns split. pass in 'left' for left and 'right' for right for direction to get that split
-    @staticmethod
-    def get_split(dataset, split, direction):
+    def get_split_data(self, dataset, split, direction):
+        #create an empty matrix the size of the dataset
         split_dataset = np.empty([dataset.shape[0], dataset.shape[1]])
         is_x_split = (split[1,0] == 0)
         feature = 0
@@ -63,7 +60,7 @@ class Node:
         for i in range(0, dataset.shape[1]):
             current_instance = dataset[feature, i]
 
-            if ((direction == 'left' and current_instance[feature, 0] <= split_value) or (direction == 'right' and current_instance[feature, 0] > split_value)):
+            if ((direction == 'left' and current_instance <= split_value) or (direction == 'right' and current_instance > split_value)):
                 split_dataset[:, j] = dataset[:, i]
                 j += 1
 
