@@ -63,7 +63,7 @@ def train_random_forest(data, size):
 if __name__ == '__main__':
     data = generateData(number_of_points, number_of_classes)
 
-    # train_random_forest(data, 100)
+    #train_random_forest(data, 100)
 
     Tree(data, 7, 3)
 
