@@ -15,18 +15,19 @@ class Node:
             self.left = None
             self.right = None
 
-    def traceNode(self, instance):
-        splitIndex = 0
+    def trace_node(self, instance):
+        split_index = 0
         if (self.split[0, 0] == 0):
-            splitIndex = 1
+            split_index = 1
 
+        #if at leaf, we return the histogram
         if (self.left == None) or (self.right == None):
             return calc_histogram(self.data, self.labels_count)
 
-        if (instance[splitIndex, 0] <= self.split[splitIndex, 0]):
-            return(traceNode(self.left))
+        if (instance[split_index, 0] <= self.split[split_index, 0]):
+            return(self.trace_node(self.left))
         else:
-            return(traceNode(self.right))
+            return(self.trace_node(self.right))
 
     #gets a random split point for the dataset
     def get_random_split(self, dataset):
@@ -121,5 +122,5 @@ class Tree:
 
         self.tree = Node(dataset, min_depth)
 
-    def traceTree(self, instance):
-        return self.tree.traceNode(instance)
+    def trace_tree(self, instance):
+        return self.tree.trace_node(instance)
