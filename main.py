@@ -46,25 +46,33 @@ def display_decision_boundary(hists, size):
 
 #returns histograms in range -1,1 -1,1
 def train_random_forest(data, size):
-    forest = rf.create_random_forest(data, 100, 7)
-    m = linspace(-1, 1, size)
-    n = linsapce(-1, 1, size)
+    return rf.create_random_forest(data, 100, 7)
+    # m = np.linspace(-1, 1, size)
+    # n = np.linsapce(-1, 1, size)
+    #
+    # histograms = np.empty([size * size])
+    #
+    # for i in range(size):
+    #     for j in range(size):
+    #         histograms[i * size + j] = rf.traceTree(np.transpose(np.matrix([m[i], n[j]])))
+    #
+    # histograms = histograms.reshape((size, size))
+    #
+    # display_decision_boundary(histograms)
 
-    histograms = np.empty([size * size])
-
-    for i in range(size):
-        for j in range(size):
-            histograms[i * size + j] = rf.traceTree(np.transpose(np.matrix([m[i], n[j]])))
-
-    histograms = histograms.reshape((size, size))
-
-    display_decision_boundary(histograms)
+#creates a decision boundary represented as a 1000 x 1000 x 3 matrix
+def create_decision_boundary(forest):
+    return None
 
 if __name__ == '__main__':
     data = generateData(number_of_points, number_of_classes)
 
-    #train_random_forest(data, 100)
+    forest = train_random_forest(data, 100)
 
-    Tree(data, 7, 3)
+
+    # create_decision_boundary(forest)
+
+
+    #Tree(data, 7, 3)
 
     #display(data)

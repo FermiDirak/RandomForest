@@ -17,12 +17,15 @@ def create_random_forest(data, number_of_trees, min_depth):
 
         #subset of the dataset to create a tree out of
         subset = np.empty([data.shape[0], pick_count])
+
+        #populating the subset
         for i in range(0, pick_count):
-            subset[:, i] = data[:, np.floor(data.shape[1] * np.random.rand())]
+            sample = data[: , int(np.floor(data.shape[1] * np.random.rand()))]
+            subset[:, i] = sample
 
         #create tree
         tree = Tree(subset, min_depth, number_of_classes)
-        forest.push(tree)
+        forest.append(tree)
 
     return forest
 
