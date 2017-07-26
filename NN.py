@@ -58,9 +58,9 @@ class NN:
 
 
     def train(self):
-        for i in range(200):
+        for i in range(10000):
             loss, _ = self.loss()
-            if i % 100 == 0:
+            if i % 1000 == 0:
                 print('iteration #%d: loss %f ' % (i, loss))
                 print('accuracy : ', np.mean(np.argmax(self.eval()[1], axis=1) == self.y))
             self.gradients()
