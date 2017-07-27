@@ -2,38 +2,65 @@ import math
 import numpy as np
 
 class Node:
-    def __init__(self, data, depth):
+    def __init__(self, data, depth, labels_count):
         self.data = data
         self.depth = depth
+        self.labels_count = int(labels_count)
 
         self.split = self.get_random_split(self.data)
 
-        if (depth > 0):
-            self.left = Node(self.get_left_data(self.data, self.split), self.depth - 1)
-            self.right = Node(self.get_right_data(self.data, self.split), self.depth - 1)
-        else:
-            self.left = None
-            self.right = None
+        self.left = None
+        self.right = None
 
-    def trace_node(self, instance):
+        if (depth >= 1):
+            self.add_node('left')
+            self.add_node('right')
+
+    def add_node(self, direction):
+        if self.depth <= 0:
+            return
+
+        if direction == 'left':
+            left_data = self.get_left_data(self.data, self.split)
+
+            if left_data is not None and left_data.shape[1] != 0:
+                self.left = Node(left_data, self.depth - 1, self.labels_count)
+
+        elif direction == 'right':
+            right_data = self.get_right_data(self.data, self.split)
+
+            if right_data is not None and right_data.shape[1] != 0:
+                self.right = Node(right_data, self.depth - 1, self.labels_count)
+
+        else:
+            error('add_node took in an improper direction')
+
+
+
+    @staticmethod
+    def trace_node(node, instance):
         split_index = 0
-        if (self.split[0, 0] == 0):
+        if (node.split[0, 0] == 0):
             split_index = 1
 
         #if at leaf, we return the histogram
-        if (self.left == None) or (self.right == None):
-            return calc_histogram(self.data, self.labels_count)
+        if (node.left == None) and (node.right == None):
+            return Node.calc_histogram(node.data, node.labels_count)
 
-        if (instance[split_index, 0] <= self.split[split_index, 0]):
-            return(self.trace_node(self.left))
+        if (instance[split_index, 0] <= node.split[split_index, 0]):
+            return(Node.trace_node(node.left, instance))
         else:
-            return(self.trace_node(self.right))
+            return(Node.trace_node(node.right, instance))
 
     #gets a random split point for the dataset
     def get_random_split(self, dataset):
         split = np.transpose(np.matrix(np.zeros(2)))
+
+        if dataset.shape[1] <= 1:
+            return split
+
         coordN = int(np.round(np.random.rand()))
-        coordM = int(np.floor(dataset.shape[1] * np.random.rand()))
+        coordM = int(np.floor(dataset.shape[1] * np.random.rand()) - 1)
 
         split[coordN, 0] = dataset[coordN + 1, coordM]
 
@@ -49,24 +76,34 @@ class Node:
 
     #returns split. pass in 'left' for left and 'right' for right for direction to get that split
     def get_split_data(self, dataset, split, direction):
+        dataset = np.matrix(dataset)
+
+        if dataset.shape[1] == 0:
+            return None
+
         #create an empty matrix the size of the dataset
-        split_dataset = np.empty([dataset.shape[0], dataset.shape[1]])
-        is_x_split = (split[1,0] == 0)
-        feature = 0
-        if not is_x_split:
-            feature = 1
-        split_value = split[feature, 0]
+        split_dataset = np.matrix(np.zeros([int(dataset.shape[0]), int(dataset.shape[1])]))
+
+        feature_index = 0
+        if (split[1, 0] != 0):
+            feature_index = 1
+        split_value = split[feature_index, 0]
 
         j = 0
         for i in range(0, dataset.shape[1]):
-            current_instance = dataset[feature, i]
+            feature_value = dataset[feature_index + 1, i]
 
-            if ((direction == 'left' and current_instance <= split_value) or (direction == 'right' and current_instance > split_value)):
+            if ((direction == 'left' and feature_value <= split_value) or (direction == 'right' and feature_value > split_value)):
+
                 split_dataset[:, j] = dataset[:, i]
                 j += 1
 
         split_dataset = split_dataset[:,0:j+1]
-        return split_dataset
+
+        if (split_dataset.shape[1] == 0):
+            return None
+        else:
+            return split_dataset
 
     #get the best split vector for dataset using Gini impurity
     @staticmethod
@@ -104,6 +141,7 @@ class Node:
     @staticmethod
     def calc_histogram(dataset, labels_count):
         histogram = np.zeros(labels_count)
+
         number_of_datum = datset.shape[1]
 
         for i in range(number_of_datum):
@@ -120,7 +158,7 @@ class Tree:
         self.labels_count = labels_count
         self.dataset = dataset
 
-        self.tree = Node(dataset, min_depth)
+        self.tree = Node(dataset, min_depth, labels_count)
 
     def trace_tree(self, instance):
-        return self.tree.trace_node(instance)
+        return Node.trace_node(self.tree, instance)

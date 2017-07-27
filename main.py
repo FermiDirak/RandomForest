@@ -64,22 +64,22 @@ def train_random_forest(data, size):
     #
     # display_decision_boundary(histograms)
 
-#creates a decision boundary represented as a 1000 x 1000 x 3 matrixå
+#creates a decision boundary represented as a 1000 x 1000 x 3 matrix
 def create_decision_boundary(forest):
     return None
 
 if __name__ == '__main__':
     data = generateData(number_of_points, number_of_classes)
 
-    forest = train_random_forest(data, 100)
+    #forest = train_random_forest(data, 100)
 
-    hist = forest.test_point(np.transpose(np.matrix([0, 0])))
-
-    print(hist)
+    # hist = forest.test_point(np.transpose(np.matrix([0, 0])))
+    # print(hist)
 
     # create_decision_boundary(forest)
 
 
-    #Tree(data, 7, 3)
+    tree = Tree(data, 7, 3)
+    # print(tree.tree.left.data)
 
     #display(data)
