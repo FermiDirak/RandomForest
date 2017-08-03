@@ -93,6 +93,10 @@ if __name__ == '__main__':
     # train_softmax(data)
     train_nn(data)
 
+    print('creating forest')
+    forest = train_random_forest(data, 200)
+    print('forest created')
+
     print('creating decison boundary')
     hists = create_decision_boundary(forest, 100)
     print('decision boundary created')
