@@ -146,9 +146,6 @@ class Node:
 
         #if at leaf, we return the histogram
         if (node.left == None) and (node.right == None):
-            print('at leaf!')
-            print(node.data)
-
             return Node.calc_histogram(node.data, node.labels_count)
 
         if (instance[split_index, 0] <= node.split[split_index, 0] and node.left != None):
