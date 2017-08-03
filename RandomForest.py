@@ -3,36 +3,49 @@ import numpy as np
 
 from DecisionTree import Tree
 
-#data and label length should be the same
-def create_random_forest(data, number_of_trees, min_depth):
-    number_of_classes = data[0, :].max() + 1
+class RandomForest:
+    def __init__(self, data, number_of_trees, min_depth, number_of_classes):
+        self.data = data
+        self.number_of_trees = number_of_trees
+        self.min_depth = min_depth
+        self.number_of_classes = number_of_classes
 
-    forest = np.empty([number_of_trees])
+        self.forest = self.create_random_forest()
 
-    #create an ensamble of trees
-    for t in range(0, number_of_trees):
-        #pick sqrt(n) datapoints. Can be redundant datapoints
-        # no idea what u were trying to do with size attribute
-        pick_count = np.floor(np.sqrt(np.shape(data)[0]))
 
-        #subset of the dataset to create a tree out of
-        subset = np.empty([np.shape(data)[1], pick_count])
-        for i in range(0, pick_count):
-            subset[0, i] = data[:, np.floor(np.shape(data)[1] * np.random.rand())] # not clear
+    #data and label length should be the same
+    def create_random_forest(self):
+        number_of_classes = self.data[0, :].max() + 1
 
-        #create tree
-        tree = Tree(subset, min_depth, number_of_classes)
-        forest[t] = tree
+        forest = []
 
-    return forest
+        #create an ensamble of trees
+        for t in range(0, self.number_of_trees):
+            #pick sqrt(n) datapoints. Can be redundant datapoints
+            # no idea what u were trying to do with size attribute
+            pick_count = int(math.floor(np.sqrt(self.data.shape[1])))
 
-#classifies a 2 featured instance
-def testPoint(forest, instance):
-    histograms = np.empty([number_of_classes])
+            #subset of the dataset to create a tree out of
+            subset = np.empty([self.data.shape[0], pick_count])
 
-    #go down the tree and find histogram of the point for the tree
-    for t in range(0, forest.size.m):
-        tree = forest[t]
-        histograms[i] = tree.traceNode(instance)
+            #populating the subset
+            for i in range(0, pick_count):
+                sample = self.data[:, int(np.floor(self.data.shape[1] * np.random.rand()))]
+                subset[:, i] = sample
 
-    return np.sum(histograms, axis = 0) / number_of_classes
+            #create tree
+            tree = Tree(subset, self.min_depth, number_of_classes)
+            forest.append(tree)
+
+        return forest
+
+    #classifies a 2 featured instance
+    def test_point(self, instance):
+        histograms = np.zeros([self.number_of_classes])
+
+        #sum histograms of trace for each tree
+        for t in range(0, self.number_of_trees):
+            tree = self.forest[t]
+            histograms += tree.trace_tree(instance)
+
+        return histograms / self.number_of_trees
