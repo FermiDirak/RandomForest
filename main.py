@@ -46,7 +46,7 @@ def display_decision_boundary(hists):
 
 #returns histograms in range -1,1 -1,1
 def train_random_forest(data, size):
-    return RandomForest(data, size, 10, number_of_classes)
+    return RandomForest(data, size, 7, number_of_classes)
 
 
 
@@ -88,11 +88,11 @@ if __name__ == '__main__':
     print('data created')
 
     print('creating forest')
-    forest = train_random_forest(data, 100)
+    forest = train_random_forest(data, 200)
     print('forest created')
 
     print('creating decison boundary')
-    hists = create_decision_boundary(forest, 50)
+    hists = create_decision_boundary(forest, 100)
     print('decision boundary created')
 
     print('displaying data and decision boundary')
