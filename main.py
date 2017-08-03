@@ -77,21 +77,11 @@ def create_decision_boundary(forest, size):
 
     return hists
 
-
-
-if __name__ == '__main__':
-
-    print('creating test data')
-
-    data = generateData(number_of_points, number_of_classes)
-
-    print('data created')
-
 if __name__ == '__main__':
     data = generateData(number_of_points, number_of_classes)
     # testing if master different now! w
     # train_softmax(data)
-    train_nn(data)
+    # train_nn(data)
 
     print('creating forest')
     forest = train_random_forest(data, 200)
