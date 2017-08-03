@@ -75,7 +75,7 @@ if __name__ == '__main__':
 
     hist = forest.test_point(np.transpose(np.matrix([0, 0])))
 
-    # print(hist)
+    print(hist)
 
     # create_decision_boundary(forest)
 
