@@ -29,24 +29,24 @@ def generateData(number_of_points, number_of_classes):
 
     return data
 
-def display(data):
-    display_decision_boundary(None)
+def display(data, hists):
+    display_decision_boundary(hists)
     display_training_data(data)
     plt.show()
 
 #displays training data for classification
 def display_training_data(data):
-    colors = ['red', 'green', 'blue', 'yellow', 'orange']
+    colors = ['green', 'blue', 'red', 'yellow', 'orange']
 
     for i in range(0, number_of_classes):
         plt.scatter(data[1, i*number_of_points:(i+1)*number_of_points], data[2, i*number_of_points:(i+1)*number_of_points], c=colors[i], s=40)
 
-def display_decision_boundary(hists, size):
-    plt.imshow(c, interpolation='nearest', extent=[-1,1,-1,1])
+def display_decision_boundary(hists):
+    plt.imshow(hists, interpolation='nearest', extent=[-1,1,-1,1])
 
 #returns histograms in range -1,1 -1,1
 def train_random_forest(data, size):
-    return RandomForest(data, size, 7, number_of_classes)
+    return RandomForest(data, size, 10, number_of_classes)
 
 
 
@@ -65,22 +65,35 @@ def train_random_forest(data, size):
     # display_decision_boundary(histograms)
 
 #creates a decision boundary represented as a 1000 x 1000 x 3 matrix
-def create_decision_boundary(forest):
-    return None
+def create_decision_boundary(forest, size):
+    def scale_to_grid(i, size):
+        return -1 + 2 * (i / size)
+
+    hists = np.zeros([size, size, 3])
+
+    for i in range(0, size):
+        for j in range(0, size):
+            hists[i, j] = forest.test_point(np.transpose(np.matrix([scale_to_grid(i, size), scale_to_grid(j, size)])))
+
+    return hists
+
+
 
 if __name__ == '__main__':
+
+    print('creating test data')
+
     data = generateData(number_of_points, number_of_classes)
 
+    print('data created')
+
+    print('creating forest')
     forest = train_random_forest(data, 100)
+    print('forest created')
 
-    hist = forest.test_point(np.transpose(np.matrix([0, 0])))
+    print('creating decison boundary')
+    hists = create_decision_boundary(forest, 50)
+    print('decision boundary created')
 
-    print(hist)
-
-    # create_decision_boundary(forest)
-
-
-    # tree = Tree(data, 7, 3)
-    # print(tree.tree.left.data.shape)
-
-    #display(data)
+    print('displaying data and decision boundary')
+    display(data, hists)

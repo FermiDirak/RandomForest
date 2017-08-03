@@ -8,7 +8,7 @@ class Node:
         self.depth = depth
         self.labels_count = int(labels_count)
 
-        self.split = self.get_random_split(self.data)
+        self.split = self.get_best_gini_split()
 
         self.left = None
         self.right = None
@@ -90,18 +90,23 @@ class Node:
             return split_dataset
 
     #get the best split vector for dataset using Gini impurity
-    @staticmethod
-    def getBestGiniSplit(dataset, labels_count):
+    def get_best_gini_split(self):
         best_split = np.transpose(np.matrix(np.zeros(2)))
         best_gini = 2
 
-        for i in range(0, int(dataset.shape[0] - 1)):
-            for j in range(0, int(dataset.shape[1])):
+        for i in range(0, int(self.data.shape[0] - 1)):
+            for j in range(0, int(self.data.shape[1])):
                 split = np.transpose(np.matrix(np.zeros(2)))
-                split[i, 0] = dataset[i+1, j]
+                split[i, 0] = self.data[i+1, j]
 
-                gini_left = calc_gini(calc_histogram(get_left_split(dataset, split), labels_count))
-                gini_right = calc_gini(calc_histogram(get_right_split(dataset, split), labels_count))
+                left_split = self.get_left_data(self.data, split)
+                right_split = self.get_right_data(self.data, split)
+
+                left_hist = Node.calc_histogram(left_split, self.labels_count)
+                right_hist = Node.calc_histogram(right_split, self.labels_count)
+
+                gini_left = Node.calc_gini(left_hist, self.labels_count)
+                gini_right = Node.calc_gini(right_hist, self.labels_count)
 
                 gini = gini_left + gini_right
 
@@ -125,6 +130,9 @@ class Node:
     @staticmethod
     def calc_histogram(dataset, labels_count):
         histogram = np.zeros(labels_count)
+
+        if dataset is None:
+            return histogram
 
         number_of_datum = dataset.shape[1]
 
