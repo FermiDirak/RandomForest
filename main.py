@@ -71,15 +71,17 @@ def create_decision_boundary(forest):
 if __name__ == '__main__':
     data = generateData(number_of_points, number_of_classes)
 
-    #forest = train_random_forest(data, 100)
+    forest = train_random_forest(data, 100)
 
-    # hist = forest.test_point(np.transpose(np.matrix([0, 0])))
+    #hist = forest.test_point(np.transpose(np.matrix([0, 0])))
+
+    hist = forest.forest[0].trace_tree(np.transpose(np.matrix([0, 0])))
     # print(hist)
 
     # create_decision_boundary(forest)
 
 
-    tree = Tree(data, 7, 3)
-    # print(tree.tree.left.data)
+    # tree = Tree(data, 7, 3)
+    # print(tree.tree.left.data.shape)
 
     #display(data)

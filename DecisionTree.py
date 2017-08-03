@@ -2,6 +2,7 @@ import math
 import numpy as np
 
 class Node:
+
     def __init__(self, data, depth, labels_count):
         self.data = data
         self.depth = depth
@@ -34,23 +35,6 @@ class Node:
 
         else:
             error('add_node took in an improper direction')
-
-
-
-    @staticmethod
-    def trace_node(node, instance):
-        split_index = 0
-        if (node.split[0, 0] == 0):
-            split_index = 1
-
-        #if at leaf, we return the histogram
-        if (node.left == None) and (node.right == None):
-            return Node.calc_histogram(node.data, node.labels_count)
-
-        if (instance[split_index, 0] <= node.split[split_index, 0]):
-            return(Node.trace_node(node.left, instance))
-        else:
-            return(Node.trace_node(node.right, instance))
 
     #gets a random split point for the dataset
     def get_random_split(self, dataset):
@@ -98,7 +82,7 @@ class Node:
                 split_dataset[:, j] = dataset[:, i]
                 j += 1
 
-        split_dataset = split_dataset[:,0:j+1]
+        split_dataset = split_dataset[:,0:j]
 
         if (split_dataset.shape[1] == 0):
             return None
@@ -142,14 +126,37 @@ class Node:
     def calc_histogram(dataset, labels_count):
         histogram = np.zeros(labels_count)
 
-        number_of_datum = datset.shape[1]
+        number_of_datum = dataset.shape[1]
 
         for i in range(number_of_datum):
             label_id = dataset[0, i]
-            histogram[label_id] += 1
+
+            histogram[int(label_id)] += 1
 
         histogram = histogram / number_of_datum
+
         return histogram
+
+    #instance is a feature vector. Compares to the Tree
+    @staticmethod
+    def trace_node(node, instance):
+        split_index = 0
+        if (abs(node.split[0, 0]) <= 0.000001):
+            split_index = 1
+
+        #if at leaf, we return the histogram
+        if (node.left == None) and (node.right == None):
+            print('at leaf!')
+            print(node.data)
+
+            return Node.calc_histogram(node.data, node.labels_count)
+
+        if (instance[split_index, 0] <= node.split[split_index, 0] and node.left != None):
+            return Node.trace_node(node.left, instance)
+        elif (node.right != None):
+            return Node.trace_node(node.right, instance)
+        else:
+            return Node.trace_node(node.left, instance)
 
 class Tree:
     def __init__(self, dataset, min_depth, labels_count):
