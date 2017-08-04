@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 
 from RandomForest import RandomForest
 from DecisionTree import Tree
+from NN import NN
 
 
 number_of_points = 100 #number of data points per class
@@ -77,11 +78,21 @@ def create_decision_boundary(forest, size):
 
     return hists
 
+def train_nn(data):
+    # print(data.T, np.shape(data))
+     print(data.T[:, 1:3].shape)
+     # print(data.T[range(400), 0].shape)
+
+     nn = NN(data.T[: ,1:], data.T[:, 0])
+
+     nn.train()
+     nn.display()
+
 if __name__ == '__main__':
     data = generateData(number_of_points, number_of_classes)
     # testing if master different now! w
     # train_softmax(data)
-    # train_nn(data)
+    train_nn(data)
 
     print('creating forest')
     forest = train_random_forest(data, 200)
