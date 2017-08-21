@@ -49,22 +49,6 @@ def display_decision_boundary(hists):
 def train_random_forest(data, size):
     return RandomForest(data, size, 7, number_of_classes)
 
-
-
-    # return rf.create_random_forest(data, 100, 7)
-    # m = np.linspace(-1, 1, size)
-    # n = np.linsapce(-1, 1, size)
-    #
-    # histograms = np.empty([size * size])
-    #
-    # for i in range(size):
-    #     for j in range(size):
-    #         histograms[i * size + j] = rf.traceTree(np.transpose(np.matrix([m[i], n[j]])))
-    #
-    # histograms = histograms.reshape((size, size))
-    #
-    # display_decision_boundary(histograms)
-
 #creates a decision boundary represented as a 1000 x 1000 x 3 matrix
 def create_decision_boundary(forest, size):
     def scale_to_grid(i, size):
