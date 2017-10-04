@@ -12,7 +12,6 @@ class RandomForest:
 
         self.forest = self.create_random_forest()
 
-
     #data and label length should be the same
     def create_random_forest(self):
         number_of_classes = self.data[0, :].max() + 1
