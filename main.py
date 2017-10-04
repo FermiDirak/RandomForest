@@ -88,7 +88,7 @@ if __name__ == '__main__':
     print('forest created')
 
     print('creating decison boundary')
-    hists = create_decision_boundary(forest, 100)
+    hists = create_decision_boundary(forest, 25)
     print('decision boundary created')
 
     print('displaying data and decision boundary')
